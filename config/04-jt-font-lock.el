@@ -28,6 +28,14 @@
 (show-paren-mode 1)
 (setq show-paren-style 'parenthesis) ; mixed, expression
 
+;; Hotkey for matching paren
+(defun goto-match-paren (arg)
+  "Go to the matching parenthesis if on parenthesis."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+        (t nil)))
+
 ;; Highlight words like TODO
 (font-lock-add-keywords
  nil '(("\\<\\(TODO\\|FIXME\\|HACK\\||NOCOMMIT\\)"
@@ -36,3 +44,7 @@
 ;; Font size
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
+
+;; Parens
+(define-key global-map (kbd "C-)") 'goto-match-paren)
+(define-key global-map (kbd "C-(") 'goto-match-paren)

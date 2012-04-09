@@ -29,5 +29,5 @@
 ; turn off visible bell
 (setq visible-bell nil)
 
-; set ediff editing mode
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+; Prefer horizontal split
+(setq display-buffer-prefer-horizontal-split t)

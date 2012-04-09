@@ -31,5 +31,8 @@
 ;(load-file (concat config-dir "18-jt-eshell.el"))
 (load-file (concat config-dir "19-jt-keybindings.el"))
 (load-file (concat config-dir "20-jt-editing.el"))
+(load-file (concat config-dir "21-jt-server.el"))
+(load-file (concat config-dir "22-jt-ediff.el"))
+(load-file (concat config-dir "23-jt-ack.el"))
 
 ;; TODO load in user specific config files

@@ -24,8 +24,9 @@ elif [[ $platform == 'darwin' ]]; then
 fi
 
 echo "Fixing permissions..."
-chmod -R u=rw,g=r,o=r *
-chmod u+x setup.sh
+chmod u=rwx,g=r,o=r setup.sh config src 
+chmod -R u=rw,g=r,o=r config/*
+chmod -R u=rw,g=r,o=r src/*
 
 echo "Fetching 3rd party packages..."
 if [ ! -d $INSTALLDIR/.emacs.d/thirdparty ]; then
@@ -43,12 +44,12 @@ else
 fi
 popd
 
-# if [ ! "init.el" -ef "~/.emacs.d/init.el" ]; then
-#     echo "Backing up init.el to init.el.backup"
-#     mv ~/.emacs.d/init.el ~/.emacs.d/init.el.backup
-# fi
-# echo "Linking init.el"
-# ln -s init.el ~/.emacs.d/init.el
+if [ ! "init.el" -ef "~/.emacs.d/init.el" ]; then
+    echo "Backing up init.el to init.el.backup"
+    mv ~/.emacs.d/init.el ~/.emacs.d/init.el.backup
+fi
+echo "Linking init.el"
+ln -s `pwd`/init.el ~/.emacs.d/init.el
 
 
 # find . -name *.tar.gz | xargs -n1 tar xvzf

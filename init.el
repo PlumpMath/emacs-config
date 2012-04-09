@@ -25,4 +25,4 @@
 (defvar saveplace-file (concat user-dir ".emacs.d/places")
   "File to store data for save-place.")
 
-(load (concat library-home "jt-emacs.el"))
+(load (concat library-dir "jt-emacs.el"))
