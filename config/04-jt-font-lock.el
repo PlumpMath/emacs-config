@@ -27,3 +27,12 @@
 ;; show matching parens
 (show-paren-mode 1)
 (setq show-paren-style 'parenthesis) ; mixed, expression
+
+;; Highlight words like TODO
+(font-lock-add-keywords
+ nil '(("\\<\\(TODO\\|FIXME\\|HACK\\||NOCOMMIT\\)"
+        1 font-lock-warning-face t)))
+
+;; Font size
+(define-key global-map (kbd "C-+") 'text-scale-increase)
+(define-key global-map (kbd "C--") 'text-scale-decrease)

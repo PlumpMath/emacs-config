@@ -1,48 +1,28 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; User configurable options
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar packages-to-install '()
-  "Packages to be installed from marmalade.")
-
-(defvar user-home (concat (expand-file-name "~") "/")
+(defvar user-dir (concat (expand-file-name "~") "/")
   "User home directory.")
 
-;; location of Emacs-Lisp configuration files
-(defvar config-home (concat user-home "conf/emacs/config/")
+(defvar config-dir (concat user-dir "conf/emacs/config/")
   "Location of configuration files.")
 
-(defvar library-home (concat user-home "conf/emacs/src/")
+(defvar library-dir (concat user-dir "conf/emacs/src/")
   "Location of custom libraries.")
 
-(defvar emacs-backups (concat user-home ".emacs-backups")
-  "Directory to store backup files in.")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; User configurable packages, folders, options
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar packages-to-install '(smex ido-ubiquitous)
+  "Packages to be installed from marmalade.")
 
-(defvar thirdparty-home (concat user-home ".emacs.d/thirdparty/")
+(defvar thirdparty-dir (concat user-dir ".emacs.d/thirdparty/")
   "Third party libraries directory.")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Useful defines
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar emacs-backups-dir (concat user-dir ".emacs-backups/")
+  "Directory to store backup files in.")
 
-;; See if we're on MS Windows, OSX, Linux
-(defvar mswindows-p (string-match "windows" (symbol-name system-type)))
-(defvar macosx-p (equal "darwin" (symbol-name system-type)))
-(defvar linux-p (string-match "linux" (symbol-name system-type)))
+(defvar smex-file (concat user-dir ".emacs.d/.smex-items")
+  "File to store data and history of smex m-x completions.")
 
-;; Install packages
-(load-file (concat library-home "jt-package.el"))
+(defvar saveplace-file (concat user-dir ".emacs.d/places")
+  "File to store data for save-place.")
 
-;; Configure packages
-(load-file (concat config-home "01-jt-color-theme.el"))
-(load-file (concat config-home "02-jt-backups.el"))
-(load-file (concat config-home "03-jt-whitespace.el"))
-(load-file (concat config-home "04-jt-font-lock.el"))
-(load-file (concat config-home "05-jt-gui-options.el"))
-(load-file (concat config-home "06-jt-keybindings.el"))
-(load-file (concat config-home "07-jt-selection.el"))
-(load-file (concat config-home "08-jt-saving.el"))
-(load-file (concat config-home "09-jt-fill-behavior.el"))
-(load-file (concat config-home "10-jt-tramp-mode.el"))
-(load-file (concat config-home "11-jt-navigation.el"))
-
-;; TODO load in user specific config files
+(load (concat library-home "jt-emacs.el"))
