@@ -19,7 +19,7 @@ if [[ $platform == 'linux' ]]; then
     # sudo add-apt-repository ppa:cassou/emacs
     # sudo apt-get update
     sudo apt-get install emacs-snapshot ack-grep git
-elif [[ $platform == 'darwin' ]]; then
+elif [[ $platform == 'mac' ]]; then
     echo "Make sure emacs24, ack, git are installed"
 fi
 
@@ -44,27 +44,22 @@ else
 fi
 popd
 
-if [ ! "init.el" -ef "~/.emacs.d/init.el" ]; then
+if [[ $platform == 'linux' ]]; then
+    STAT_CMD="stat -L -c '%d:%i' "
+elif [[ $platform == 'mac' ]]; then
+    STAT_CMD="stat -L -f '%d:%i' "
+fi
+
+if ! [ "$($STAT_CMD "init.el")" = "$($STAT_CMD "$HOME/.emacs.d/init.el")" ]; then
     echo "Backing up init.el to init.el.backup"
     mv ~/.emacs.d/init.el ~/.emacs.d/init.el.backup
+    echo "Linking init.el"
+    ln -s `pwd`/init.el ~/.emacs.d/init.el
+else
+    echo "Init files are already linked"
 fi
-echo "Linking init.el"
-ln -s `pwd`/init.el ~/.emacs.d/init.el
+
 
 
 # find . -name *.tar.gz | xargs -n1 tar xvzf
 # find . -name *.tar.bz2 | xargs -n1 tar xvjpf
-#mv auto-complete* ./emacs/auto-complete
-#cd ./emacs/auto-complete/
-#make
-#cd ../../
-#mv *Pymacs* ./emacs/pymacs
-#mv yasnippet* ./emacs/yasnippet
-#mv cedet* ./emacs/cedet
-#mv ecb* ./emacs/ecb
-#mv color-theme ./emacs/color-theme
-#mv haskell-mode* ./emacs/haskell-mode
-#mv python-mode*/* ./emacs/python-mode/
-#rm -rf python-mode*
-#mv php-mode* ./emacs/php-mode
-

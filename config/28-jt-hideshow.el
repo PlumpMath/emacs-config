@@ -11,7 +11,10 @@
   )
 
 (add-hook 'hs-minor-mode-hook 'hideshow-keybindings)
-(hs-minor-mode +1)
+
+(defun turn-on-hideshow ()
+  (hs-minor-mode +1))
+(add-hook 'text-mode-hook 'turn-on-hideshow)
 
 ;; Hide the comments too when you do a 'hs-hide-all'
 (setq hs-hide-comments nil)

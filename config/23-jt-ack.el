@@ -11,11 +11,16 @@
 (defalias 'ack-find-file 'ack-and-a-half-find-file)
 (defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)
 
-(global-set-key (kbd "C-c c") 'ack)
+(global-set-key (kbd "C-c a") 'ack)
+
+(defvar ack-cmd)
+(if macosx-p
+    (setq ack-cmd (executable-find "ack"))
+  (setq ack-cmd (executable-find "ack-grep")))
 
 (defun ack-grep ()
   "Use ack for grep"
   (interactive)
-  (compile (read-string "Run ack as: " (concat "ack-grep --nogroup --nocolour " (thing-at-point 'symbol)))))
+  (compile (read-string "Run ack as: " (concat ack-cmd " --nogroup --nocolour " (thing-at-point 'symbol)))))
 
-(global-set-key (kbd "C-c C-c") 'ack-grep)
+(global-set-key (kbd "C-c C-a") 'ack-grep)

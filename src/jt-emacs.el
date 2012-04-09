@@ -7,6 +7,10 @@
 (defvar macosx-p (equal "darwin" (symbol-name system-type)))
 (defvar linux-p (string-match "linux" (symbol-name system-type)))
 
+;; Fix shell PATH on Darwin
+(if macosx-p
+    (push "/usr/local/bin" exec-path))
+
 ;; Install packages
 (load-file (concat library-dir "jt-package.el"))
 
