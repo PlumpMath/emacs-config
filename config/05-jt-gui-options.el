@@ -5,6 +5,7 @@
 
 ;; Disambiguate buffers with the same name by adding the parent director(ies)
 (require 'uniquify)
+(setq uniquify-separator "/")
 (setq uniquify-buffer-name-style 'forward)
 
 ; don't pop up a file dialog
@@ -30,4 +31,14 @@
 (setq visible-bell nil)
 
 ; Prefer horizontal split
-(setq display-buffer-prefer-horizontal-split t)
+(setq split-height-threshold nil)
+(setq split-width-threshold 80)
+
+
+; Nicer scrolling
+(setq scroll-margin 0
+      scroll-conservatively 100000
+      scroll-preserve-screen-position 1)
+
+; cool colors like #1122ff
+(rainbow-mode 1)

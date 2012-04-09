@@ -10,7 +10,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; User configurable packages, folders, options
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar packages-to-install '(smex ido-ubiquitous)
+(defvar packages-to-install '(smex
+                              ido-ubiquitous
+                              volatile-highlights
+                              expand-region
+                              ack-and-a-half
+                              rainbow-mode
+                              )
   "Packages to be installed from marmalade.")
 
 (defvar thirdparty-dir (concat user-dir ".emacs.d/thirdparty/")

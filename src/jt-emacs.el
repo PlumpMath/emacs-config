@@ -34,5 +34,10 @@
 (load-file (concat config-dir "21-jt-server.el"))
 (load-file (concat config-dir "22-jt-ediff.el"))
 (load-file (concat config-dir "23-jt-ack.el"))
+(load-file (concat config-dir "24-jt-google.el"))
+(load-file (concat config-dir "25-jt-flymake.el"))
+(load-file (concat config-dir "26-jt-regex.el"))
+(load-file (concat config-dir "27-jt-cc-mode.el"))
+(load-file (concat config-dir "28-jt-hideshow.el"))
 
 ;; TODO load in user specific config files

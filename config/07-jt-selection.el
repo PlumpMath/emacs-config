@@ -16,3 +16,11 @@
 
 ; single space after a period is a new sentence for selecting
 (setq sentence-end-double-space nil)
+
+;; Show results of undo, yank
+(require 'volatile-highlights)
+(volatile-highlights-mode t)
+
+;; expand-region
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
