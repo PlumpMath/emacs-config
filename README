@@ -2,3 +2,4 @@ Run ./setup.sh
 
 This will install dependencies (emacs, git, ack-grep), initialize your ~/.emacs.d/init.el file, and pull thirdparty dependencies into ~/.emacs.d/thirdparty
 
+The init.el file will install packages from marmalade, and initialize third party packages. It will also run a $username.el file located in the ~/.emacs.d/ directory if it exists.

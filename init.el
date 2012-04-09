@@ -12,10 +12,13 @@
   "Location of configuration files.")
 
 (defvar library-home (concat user-home "conf/emacs/src/")
-  "Location of 3rd party libraries.")
+  "Location of custom libraries.")
 
 (defvar emacs-backups (concat user-home ".emacs-backups")
   "Directory to store backup files in.")
+
+(defvar thirdparty-home (concat user-home ".emacs.d/thirdparty/")
+  "Third party libraries directory.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Useful defines
@@ -29,7 +32,17 @@
 ;; Install packages
 (load-file (concat library-home "jt-package.el"))
 
-;; load in awesome config files
-; (load-file (concat conf-home "db-emacs.el"))
-; (load-file (concat conf-home "jt-emacs.el"))
+;; Configure packages
+(load-file (concat config-home "01-jt-color-theme.el"))
+(load-file (concat config-home "02-jt-backups.el"))
+(load-file (concat config-home "03-jt-whitespace.el"))
+(load-file (concat config-home "04-jt-font-lock.el"))
+(load-file (concat config-home "05-jt-gui-options.el"))
+(load-file (concat config-home "06-jt-keybindings.el"))
+(load-file (concat config-home "07-jt-selection.el"))
+(load-file (concat config-home "08-jt-saving.el"))
+(load-file (concat config-home "09-jt-fill-behavior.el"))
+(load-file (concat config-home "10-jt-tramp-mode.el"))
+(load-file (concat config-home "11-jt-navigation.el"))
 
+;; TODO load in user specific config files
