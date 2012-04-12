@@ -18,9 +18,9 @@ if [[ $platform == 'linux' ]]; then
     # until emacs 24: https://launchpad.net/~cassou/+archive/emacs
     # sudo add-apt-repository ppa:cassou/emacs
     # sudo apt-get update
-    sudo apt-get install emacs-snapshot ack-grep git
+    sudo apt-get install emacs-snapshot ack-grep git ipython pyflakes
 elif [[ $platform == 'mac' ]]; then
-    echo "Make sure emacs24, ack, git are installed"
+    echo "Make sure emacs24, ack, git, ipython, pyflakes are installed"
 fi
 
 echo "Fixing permissions..."
@@ -41,6 +41,16 @@ else
     echo "Updating emacs-color-theme-solarized..."
     cd emacs-color-theme-solarized
     git pull -u
+    cd ..
+fi
+if [ ! -d python ]; then
+    echo "Pulling fgallina/python-mode"
+    git clone git://github.com/fgallina/python.el.git python
+else
+    echo "Updating python-mode"
+    cd python
+    git pull -u
+    cd ..
 fi
 popd
 

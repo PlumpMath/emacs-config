@@ -43,5 +43,6 @@
 (load-file (concat config-dir "26-jt-regex.el"))
 (load-file (concat config-dir "27-jt-cc-mode.el"))
 (load-file (concat config-dir "28-jt-hideshow.el"))
+(load-file (concat config-dir "29-jt-python.el"))
 
 ;; TODO load in user specific config files

@@ -1,11 +1,19 @@
 (defvar user-dir (concat (expand-file-name "~") "/")
   "User home directory.")
 
-(defvar config-dir (concat user-dir "conf/emacs/config/")
+(defvar install-dir
+  (file-name-directory (file-truename (or load-file-name
+                                          buffer-file-name)))
+  "Configuration install dir")
+
+(defvar config-dir (concat install-dir "config/")
   "Location of configuration files.")
 
-(defvar library-dir (concat user-dir "conf/emacs/src/")
+(defvar library-dir (concat install-dir "src/")
   "Location of custom libraries.")
+
+(defvar thirdparty-elisp-dir (concat install-dir "thirdparty/")
+  "Location of third party elisp libraries.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; User configurable packages, folders, options
@@ -16,6 +24,8 @@
                               expand-region
                               ack-and-a-half
                               rainbow-mode
+                              flymake
+                              flymake-cursor
                               )
   "Packages to be installed from marmalade.")
 

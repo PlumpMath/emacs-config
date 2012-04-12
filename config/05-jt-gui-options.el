@@ -20,6 +20,10 @@
 ; show line number in mode line
 (line-number-mode 1)
 
+;; Line numbering
+(setq linum-format "%4d")
+(global-linum-mode 1)
+
 ; show column number in mode line
 (column-number-mode 1)
 
