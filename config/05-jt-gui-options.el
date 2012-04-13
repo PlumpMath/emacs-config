@@ -21,8 +21,16 @@
 (line-number-mode 1)
 
 ;; Line numbering
-(setq linum-format "%4d")
+(setq linum-format "%d ")
 (global-linum-mode 1)
+
+(setq background-color (cdr (assoc :background (face-all-attributes 'default))))
+(set-face-background 'linum background-color)
+
+;; Fringe color
+(set-fringe-style '(0 . 4))
+(set-face-background 'fringe background-color)
+
 
 ; show column number in mode line
 (column-number-mode 1)
@@ -46,3 +54,4 @@
 
 ; cool colors like #1122ff
 (rainbow-mode 1)
+
