@@ -24,7 +24,7 @@
 (setq linum-format "%d ")
 (global-linum-mode 1)
 
-(setq background-color (cdr (assoc :background (face-all-attributes 'default))))
+(setq background-color (face-attribute 'default :background))
 (set-face-background 'linum background-color)
 
 ;; Fringe color
