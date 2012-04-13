@@ -56,14 +56,41 @@ The CMDLINE should be something like:
                (list "\\.py\\'" (apply-partially 'python-flymake-command-parse cmdline)))
   )
 
+
+(defun python-shift-left ()
+  (interactive)
+  (let (start end bds)
+    (if (and transient-mark-mode
+             mark-active)
+	(setq start (region-beginning) end (region-end))
+      (progn
+	(setq bds (bounds-of-thing-at-point 'line))
+	(setq start (car bds) end (cdr bds))))
+  (python-indent-shift-left start end))
+  (setq deactivate-mark nil)
+)
+
+(defun python-shift-right ()
+  (interactive)
+  (let (start end bds)
+    (if (and transient-mark-mode
+             mark-active)
+	(setq start (region-beginning) end (region-end))
+      (progn
+	(setq bds (bounds-of-thing-at-point 'line))
+	(setq start (car bds) end (cdr bds))))
+  (python-indent-shift-right start end))
+  (setq deactivate-mark nil)
+)
+
 (defun flymake-python ()
   (require 'flymake)
   (require 'flymake-cursor)
+  (flymake-mode)
   (flymake-cursor-mode 1)
   (python-setup-checker "pyflakes %f")
-  (flymake-mode)
-  (local-set-key (kbd "M-n") flymake-goto-next-error)
-  (local-set-key (kbd "M-p") flymake-goto-prev-error)
+  (define-key python-mode-map (kbd "M-n") 'flymake-goto-next-error)
+  (define-key python-mode-map (kbd "M-p") 'flymake-goto-prev-error)
   )
 
 ;; new keybindings
@@ -71,8 +98,8 @@ The CMDLINE should be something like:
           '(lambda () 
              (progn
                (flymake-python)
+               (define-key python-mode-map (kbd "C-S-<right>") 'python-shift-right)
+               (define-key python-mode-map (kbd "C-S-<left>") 'python-shift-left)
                (define-key python-mode-map (kbd "C-m") 'newline-and-indent)
-               (define-key python-mode-map (kbd "C-a") 'python-nav-sentence-start)
-               (define-key python-mode-map (kbd "C-e") 'python-nav-sentence-end)
-               (define-key python-mode-map (kbd "M-a") 'move-beginning-of-line)
-               (define-key python-mode-map (kbd "M-e") 'move-end-of-line))))
+               (define-key python-mode-map (kbd "M-a") 'python-nav-sentence-start)
+               (define-key python-mode-map (kbd "M-e") 'python-nav-sentence-end))))

@@ -33,7 +33,7 @@
 (load-file (concat config-dir "16-jt-hippie-expand.el"))
 (load-file (concat config-dir "17-jt-windows.el"))
 ;(load-file (concat config-dir "18-jt-eshell.el"))
-(load-file (concat config-dir "19-jt-keybindings.el"))
+(load-file (concat config-dir "19-jt-open-next-line.el"))
 (load-file (concat config-dir "20-jt-editing.el"))
 (load-file (concat config-dir "21-jt-server.el"))
 (load-file (concat config-dir "22-jt-ediff.el"))
@@ -44,5 +44,9 @@
 (load-file (concat config-dir "27-jt-cc-mode.el"))
 (load-file (concat config-dir "28-jt-hideshow.el"))
 (load-file (concat config-dir "29-jt-python.el"))
+(load-file (concat config-dir "30-jt-skeleton.el"))
 
 ;; TODO load in user specific config files
+
+;; auto complete
+;; rope
