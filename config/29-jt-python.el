@@ -56,13 +56,21 @@ The CMDLINE should be something like:
                (list "\\.py\\'" (apply-partially 'python-flymake-command-parse cmdline)))
   )
 
+(defun flymake-python ()
+  (require 'flymake)
+  (require 'flymake-cursor)
+  (flymake-cursor-mode 1)
+  (python-setup-checker "pyflakes %f")
+  (flymake-mode)
+  (local-set-key (kbd "M-n") flymake-goto-next-error)
+  (local-set-key (kbd "M-p") flymake-goto-prev-error)
+  )
+
 ;; new keybindings
 (add-hook 'python-mode-hook
           '(lambda () 
              (progn
-               (require 'flymake)
-               (python-setup-checker "pyflakes %f")
-               (flymake-mode)
+               (flymake-python)
                (define-key python-mode-map (kbd "C-m") 'newline-and-indent)
                (define-key python-mode-map (kbd "C-a") 'python-nav-sentence-start)
                (define-key python-mode-map (kbd "C-e") 'python-nav-sentence-end)
