@@ -36,10 +36,13 @@
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
         (t nil)))
 
-;; Highlight words like TODO
-(font-lock-add-keywords
- nil '(("\\<\\(TODO\\|FIXME\\|HACK\\||NOCOMMIT\\)"
-        1 font-lock-warning-face t)))
+;; Highlight words like
+(defun highlight-todos-on ()
+  (font-lock-add-keywords
+   nil '(("\\<\\(TODO\\|FIXME\\|HACK\\||NOCOMMIT\\)"
+          1 font-lock-warning-face t))))
+(add-hook 'text-mode-hook 'highlight-todos-on)
+(add-hook 'python-mode-hook 'highlight-todos-on)
 
 ;; Font size
 (define-key global-map (kbd "C-+") 'text-scale-increase)

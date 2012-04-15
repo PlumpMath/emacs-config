@@ -18,9 +18,11 @@ if [[ $platform == 'linux' ]]; then
     # until emacs 24: https://launchpad.net/~cassou/+archive/emacs
     # sudo add-apt-repository ppa:cassou/emacs
     # sudo apt-get update
-    sudo apt-get install emacs-snapshot ack-grep git ipython pyflakes
+    sudo apt-get install emacs-snapshot ack-grep git ipython pyflakes python-setuptools
+    sudo pip install rope ropemode
 elif [[ $platform == 'mac' ]]; then
     echo "Make sure emacs24, ack, git, ipython, pyflakes are installed"
+    echo "Make sure pip install rope ropemode"
 fi
 
 echo "Fixing permissions..."
@@ -52,6 +54,19 @@ else
     git pull -u
     cd ..
 fi
+if [ ! -d python ]; then
+    echo "Pulling pymacs"
+    git clone https://github.com/pinard/Pymacs.git
+else
+    echo "Updating pymacs"
+    cd Pymacs
+    git pull -u
+    cd ..
+fi
+echo "Building pymacs"
+cd Pymacs
+make && sudo make install
+cd ..
 popd
 
 if [[ $platform == 'linux' ]]; then

@@ -22,7 +22,10 @@
 
 ;; Line numbering
 (setq linum-format "%d ")
-(global-linum-mode 1)
+(defun turn-linum-on ()
+  (linum-mode))
+(add-hook 'python-mode-hook 'turn-linum-on)
+
 
 (setq background-color (face-attribute 'default :background))
 (set-face-background 'linum background-color)

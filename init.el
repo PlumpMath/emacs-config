@@ -26,6 +26,9 @@
                               rainbow-mode
                               flymake
                               flymake-cursor
+                              auto-complete
+                              ipython
+                              pymacs
                               )
   "Packages to be installed from marmalade.")
 

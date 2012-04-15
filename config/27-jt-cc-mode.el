@@ -11,5 +11,6 @@
 
 (add-hook 'c-mode-common-hook 'c-mode-common-hook-fn)
 
-(global-set-key (kbd "C-c k") 'comment-region)
-(global-set-key (kbd "C-c u") 'uncomment-region)
+;; comment-dwim comments regions, makes a new comment, uncomments commented
+;; regions depending on context.
+(global-set-key (kbd "C-c k") 'comment-dwim)

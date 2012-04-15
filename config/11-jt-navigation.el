@@ -16,8 +16,20 @@
                 isearch-yank-flag t))
       (ding)))
   (isearch-search-and-update))
-(define-key isearch-mode-map (kbd "C-w") 'isearch-yank-symbol)
 
+(defun occur-inside-isearch ()
+  (interactive)
+  (let ((case-fold-search isearch-case-fold-search))
+    (occur (if isearch-regexp isearch-string (regexp-quote isearch-string)))
+    (other-window 1)))
+
+;; occur on thing at point
+(defun occur-thing-at-point ()
+  (interactive)
+  (occur (thing-at-point 'symbol))
+  (other-window 1))
+
+(define-key isearch-mode-map (kbd "C-w") 'isearch-yank-symbol)
 ;; Visiting lines
 (global-set-key (kbd "C-x C-g") 'goto-line)
 
@@ -30,8 +42,8 @@
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
+;; Occur in file
+(global-set-key (kbd "C-c C-o") 'occur-thing-at-point)
 ;; Activate occur inside isearch
 (define-key isearch-mode-map (kbd "C-o")
-  (lambda () (interactive)
-    (let ((case-fold-search isearch-case-fold-search))
-      (occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
+  'occur-inside-isearch)

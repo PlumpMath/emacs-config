@@ -20,11 +20,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; FLYMAKE FOR PYTHON
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (require 
-;; (when (load-file (concat thirdparty-elisp-dir "flymake-patch.el"))
-;;   (setq flymake-info-line-regex
-;;         (append flymake-info-line-regex '("unused$" "^redefinition" "used$")))
-;;   (load-file (concat thirdparty-elisp-dir "flymake-cursor.el")))
 (add-hook 'python-mode-hook 'flymake-find-file-hook)
 
 (defun python-flymake-create-copy-file ()
@@ -92,6 +87,13 @@ The CMDLINE should be something like:
   (define-key python-mode-map (kbd "M-n") 'flymake-goto-next-error)
   (define-key python-mode-map (kbd "M-p") 'flymake-goto-prev-error)
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Ropemacs
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; pymacs
+(require 'pymacs)
+
 
 ;; new keybindings
 (add-hook 'python-mode-hook

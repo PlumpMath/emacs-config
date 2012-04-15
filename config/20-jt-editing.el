@@ -35,8 +35,6 @@ there's a region, all lines that region covers will be duplicated."
   (transpose-lines 1)
   (previous-line 1))
 
-(electric-layout-mode t)
-
 ;; code borrowed from http://emacs-fu.blogspot.com/2010/01/duplicating-lines-and-commenting-them.html
 (defun duplicate-line-and-comment (&optional commentfirst)
   "comment line at point; if COMMENTFIRST is non-nil, comment the
