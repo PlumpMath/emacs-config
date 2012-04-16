@@ -21,13 +21,13 @@
   (interactive)
   (let ((case-fold-search isearch-case-fold-search))
     (occur (if isearch-regexp isearch-string (regexp-quote isearch-string)))
-    (other-window 1)))
+    (switch-to-window-by-name "*Occur*")))
 
 ;; occur on thing at point
 (defun occur-thing-at-point ()
   (interactive)
   (occur (thing-at-point 'symbol))
-  (other-window 1))
+  (switch-to-window-by-name "*Occur*"))
 
 (define-key isearch-mode-map (kbd "C-w") 'isearch-yank-symbol)
 ;; Visiting lines

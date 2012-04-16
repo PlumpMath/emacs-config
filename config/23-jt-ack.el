@@ -22,6 +22,6 @@
   "Use ack for grep"
   (interactive)
   (compile (read-string "Run ack as: " (concat ack-cmd " --nogroup --nocolour " (thing-at-point 'symbol))))
-  (other-window 1))
+  (switch-to-window-by-name "*compilation*"))
 
 (global-set-key (kbd "C-c C-a") 'ack-grep)

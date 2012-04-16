@@ -30,6 +30,9 @@
         (funcall func (concat cur-dir "/" filename))
       (message (concat "Failed to find: " filename)))))
 
+(defun switch-to-window-by-name (name)
+  (select-window (get-buffer-window name)))
+
 ;; Configure packages
 (load-file (concat config-dir "01-jt-color-theme.el"))
 (load-file (concat config-dir "02-jt-backups.el"))
