@@ -28,7 +28,6 @@
                               flymake-cursor
                               auto-complete
                               ipython
-                              pymacs
                               )
   "Packages to be installed from marmalade.")
 
@@ -44,4 +43,11 @@
 (defvar saveplace-file (concat user-dir ".emacs.d/places")
   "File to store data for save-place.")
 
+(defvar auto-complete-dir (concat user-dir ".emacs.d/elpa/auto-complete-1.4/dict/")
+  "Dir to store data for auto-complete-mode.")
+
+;; Install packages
+(load-file (concat library-dir "jt-package.el"))
+
+;; Configurations
 (load (concat library-dir "jt-emacs.el"))

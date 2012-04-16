@@ -11,8 +11,24 @@
 (if macosx-p
     (push "/usr/local/bin" exec-path))
 
-;; Install packages
-(load-file (concat library-dir "jt-package.el"))
+(setq debug-on-error t)
+
+;; Find file with given name and run a callback
+(defun find-file-and-run-fn (filename &optional fn)
+  (let ((cur-dir ".")
+        (home-dir (expand-file-name "~"))
+        (root-dir "/")
+        (func (if fn
+                  fn
+                '(lambda (fname) (message fname)))
+              ))
+    (while (not (or (file-exists-p (concat cur-dir "/" filename))
+                    (equal home-dir (expand-file-name cur-dir))
+                    (equal root-dir (expand-file-name cur-dir))))
+      (setq cur-dir (concat cur-dir "/..")))
+    (if (file-exists-p (concat cur-dir "/" filename))
+        (funcall func (concat cur-dir "/" filename))
+      (message (concat "Failed to find: " filename)))))
 
 ;; Configure packages
 (load-file (concat config-dir "01-jt-color-theme.el"))
@@ -43,6 +59,7 @@
 (load-file (concat config-dir "26-jt-regex.el"))
 (load-file (concat config-dir "27-jt-cc-mode.el"))
 (load-file (concat config-dir "28-jt-hideshow.el"))
+(load-file (concat config-dir "31-jt-auto-complete.el"))
 (load-file (concat config-dir "29-jt-python.el"))
 (load-file (concat config-dir "30-jt-skeleton.el"))
 

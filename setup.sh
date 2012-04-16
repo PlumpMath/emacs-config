@@ -18,7 +18,7 @@ if [[ $platform == 'linux' ]]; then
     # until emacs 24: https://launchpad.net/~cassou/+archive/emacs
     # sudo add-apt-repository ppa:cassou/emacs
     # sudo apt-get update
-    sudo apt-get install emacs-snapshot ack-grep git ipython pyflakes python-setuptools
+    sudo apt-get install emacs-snapshot ack-grep git mercurial ipython pyflakes python-setuptools
     sudo pip install rope ropemode
 elif [[ $platform == 'mac' ]]; then
     echo "Make sure emacs24, ack, git, ipython, pyflakes are installed"
@@ -54,7 +54,7 @@ else
     git pull -u
     cd ..
 fi
-if [ ! -d python ]; then
+if [ ! -d Pymacs ]; then
     echo "Pulling pymacs"
     git clone https://github.com/pinard/Pymacs.git
 else
@@ -66,6 +66,19 @@ fi
 echo "Building pymacs"
 cd Pymacs
 make && sudo make install
+cd ..
+if [ ! -d ropemacs ]; then
+    echo "Pulling ropemacs"
+    hg clone https://bitbucket.org/agr/ropemacs
+else
+    echo "Updating ropemacs"
+    cd ropemacs
+    hg pull -u
+    cd ..
+fi
+echo "Building ropemacs"
+cd ropemacs
+sudo python setup.py install
 cd ..
 popd
 

@@ -1,7 +1,7 @@
 ;; fgallina/python.el
 (require 'python (concat thirdparty-dir "python/python.el"))
 
-(defun setup-ipython ()
+(defun setup-ipython-011 ()
   (interactive)
   (setq
    python-shell-interpreter "ipython"
@@ -15,7 +15,21 @@
    python-shell-completion-string-code
      "';'.join(get_ipython().Completer.all_completions('''%s'''))\n"))
 
-(setup-ipython)
+(defun setup-ipython-010 ()
+  (interactive)
+  (setq
+   python-shell-interpreter "ipython"
+   python-shell-interpreter-args ""
+   python-shell-prompt-regexp "In \\[[0-9]+\\]: "
+   python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
+   python-shell-completion-setup-code
+     "from IPython.core.completerlib import module_completion"
+   python-shell-completion-module-string-code ""
+   python-shell-completion-string-code
+     "';'.join(__IP.complete('''%s'''))\n"
+     ))
+
+(setup-ipython-010)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; FLYMAKE FOR PYTHON
@@ -92,13 +106,44 @@ The CMDLINE should be something like:
 ;; Ropemacs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; pymacs
-(require 'pymacs)
+(add-to-list 'load-path (concat thirdparty-dir "Pymacs/"))
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
+(autoload 'pymacs-autoload "pymacs")
+
+;; ropemacs
+(defun setup-ropemacs ()
+  "Setup the ropemacs harness"
+  ;; (setenv "PYTHONPATH"
+  ;;         (concat
+  ;;          (getenv "PYTHONPATH") path-separator))
+  (pymacs-load "ropemacs" "rope-")
+
+  ;; Stops from erroring if there's a syntax err
+  (setq ropemacs-codeassist-maxfixes 3)
+
+  ;; Configurations
+  (setq ropemacs-guess-project t)
+  (setq ropemacs-enable-autoimport t)
+  (setq ropemacs-autoimport-modules '("os" "shutil" "sys" "logging"))
+  ;; Adding hook to automatically open a rope project if there is one
+  ;; in the current or in the upper level directory
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (find-file-and-run-fn ".ropeproject"
+                                    (lambda (name)
+                                      (rope-open-project name))))))
+
 
 
 ;; new keybindings
 (add-hook 'python-mode-hook
           '(lambda () 
              (progn
+               (setup-ropemacs)
                (flymake-python)
                (define-key python-mode-map (kbd "C-S-<right>") 'python-shift-right)
                (define-key python-mode-map (kbd "C-S-<left>") 'python-shift-left)
