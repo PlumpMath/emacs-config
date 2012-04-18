@@ -1,35 +1,13 @@
-;; fgallina/python.el
-(require 'python (concat thirdparty-dir "python/python.el"))
-
-(defun setup-ipython-011 ()
-  (interactive)
-  (setq
-   python-shell-interpreter "ipython"
-   python-shell-interpreter-args ""
-   python-shell-prompt-regexp "In \\[[0-9]+\\]: "
-   python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
-   python-shell-completion-setup-code
-     "from IPython.core.completerlib import module_completion"
-   python-shell-completion-module-string-code
-     "';'.join(module_completion('''%s'''))\n"
-   python-shell-completion-string-code
-     "';'.join(get_ipython().Completer.all_completions('''%s'''))\n"))
-
-(defun setup-ipython-010 ()
-  (interactive)
-  (setq
-   python-shell-interpreter "ipython"
-   python-shell-interpreter-args ""
-   python-shell-prompt-regexp "In \\[[0-9]+\\]: "
-   python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
-   python-shell-completion-setup-code
-     "from IPython.core.completerlib import module_completion"
-   python-shell-completion-module-string-code ""
-   python-shell-completion-string-code
-     "';'.join(__IP.complete('''%s'''))\n"
-     ))
-
-(setup-ipython-010)
+(add-to-list 'load-path (concat thirdparty-dir "python-mode/"))
+(setq py-install-directory (concat thirdparty-dir "python-mode/"))
+(add-hook 'python-mode-hook
+          (lambda ()
+            (setq py-shell-name "ipython")
+            (setq py-python-command-args '("-i" "-colors" "Linux"))
+            (setq py-indent-offset 4)))
+(require 'python-mode)
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+(require 'ipython)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; FLYMAKE FOR PYTHON
@@ -98,8 +76,8 @@ The CMDLINE should be something like:
   (flymake-mode)
   (flymake-cursor-mode 1)
   (python-setup-checker "pyflakes %f")
-  (define-key python-mode-map (kbd "M-n") 'flymake-goto-next-error)
-  (define-key python-mode-map (kbd "M-p") 'flymake-goto-prev-error)
+  (define-key py-mode-map (kbd "M-n") 'flymake-goto-next-error)
+  (define-key py-mode-map (kbd "M-p") 'flymake-goto-prev-error)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -145,8 +123,8 @@ The CMDLINE should be something like:
              (progn
                (setup-ropemacs)
                (flymake-python)
-               (define-key python-mode-map (kbd "C-S-<right>") 'python-shift-right)
-               (define-key python-mode-map (kbd "C-S-<left>") 'python-shift-left)
-               (define-key python-mode-map (kbd "C-m") 'newline-and-indent)
-               (define-key python-mode-map (kbd "M-a") 'python-nav-sentence-start)
-               (define-key python-mode-map (kbd "M-e") 'python-nav-sentence-end))))
+               (define-key py-mode-map (kbd "C-S-<right>") 'python-shift-right)
+               (define-key py-mode-map (kbd "C-S-<left>") 'python-shift-left)
+               (define-key py-mode-map (kbd "C-m") 'newline-and-indent)
+               (define-key py-mode-map (kbd "M-a") 'python-nav-sentence-start)
+               (define-key py-mode-map (kbd "M-e") 'python-nav-sentence-end))))

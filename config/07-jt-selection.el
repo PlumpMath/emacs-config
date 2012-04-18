@@ -1,5 +1,5 @@
 ;; keep cursor from blinking
-(blink-cursor-mode nil)
+(blink-cursor-mode -1)
 
 ;; cua-mode: show highlighted text, rectangle mode, but no cua-keys (C-x C-c C-v cut copy paste)
 (cua-selection-mode t)
@@ -25,3 +25,14 @@
 ;; expand-region
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
+
+;; copy name to clipboard
+(defun copy-file-name-to-clipboard ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name))))
+    (when filename
+      (kill-new filename)
+      (message "Copied buffer file name '%s' to the clipboard." filename))))

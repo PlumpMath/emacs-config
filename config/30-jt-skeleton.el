@@ -8,4 +8,4 @@
 ;; Just python
 (add-hook 'python-mode-hook 
           (lambda () 
-            (define-key python-mode-map "'" 'skeleton-pair-insert-maybe)))
+            (define-key py-mode-map "'" 'skeleton-pair-insert-maybe)))

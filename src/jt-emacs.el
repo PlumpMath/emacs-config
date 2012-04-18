@@ -63,6 +63,7 @@
 (load-file (concat config-dir "27-jt-cc-mode.el"))
 (load-file (concat config-dir "28-jt-hideshow.el"))
 (load-file (concat config-dir "31-jt-auto-complete.el"))
+(load-file (concat config-dir "32-jt-helm.el"))
 (load-file (concat config-dir "29-jt-python.el"))
 (load-file (concat config-dir "30-jt-skeleton.el"))
 

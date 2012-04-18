@@ -18,7 +18,7 @@ if [[ $platform == 'linux' ]]; then
     # until emacs 24: https://launchpad.net/~cassou/+archive/emacs
     # sudo add-apt-repository ppa:cassou/emacs
     # sudo apt-get update
-    sudo apt-get install emacs-snapshot ack-grep git mercurial ipython pyflakes python-setuptools
+    sudo apt-get install emacs-snapshot ack-grep git mercurial ipython pyflakes python-setuptools bzr
     sudo pip install rope ropemode
 elif [[ $platform == 'mac' ]]; then
     echo "Make sure emacs24, ack, git, ipython, pyflakes are installed"
@@ -45,15 +45,27 @@ else
     git pull -u
     cd ..
 fi
-if [ ! -d python ]; then
-    echo "Pulling fgallina/python-mode"
-    git clone git://github.com/fgallina/python.el.git python
+if [ ! -d python-mode ]; then
+    echo "Pulling python-mode"
+    bzr branch lp:python-mode
 else
     echo "Updating python-mode"
-    cd python
+    cd python-mode
+    bzr merge
+    cd ..
+fi
+if [ ! -d helm ]; then
+    echo "Pulling helm"
+    git clone git://github.com/emacs-helm/helm.git
+else
+    echo "Updating helm"
+    cd helm
     git pull -u
     cd ..
 fi
+cd helm
+make
+cd ..
 if [ ! -d Pymacs ]; then
     echo "Pulling pymacs"
     git clone https://github.com/pinard/Pymacs.git

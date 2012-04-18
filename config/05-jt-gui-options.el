@@ -7,6 +7,8 @@
 (require 'uniquify)
 (setq uniquify-separator "/")
 (setq uniquify-buffer-name-style 'forward)
+(setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
+(setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
 ; don't pop up a file dialog
 (setq use-file-dialog nil)
@@ -34,7 +36,6 @@
 (set-fringe-style '(0 . 4))
 (set-face-background 'fringe background-color)
 
-
 ; show column number in mode line
 (column-number-mode 1)
 
@@ -56,4 +57,12 @@
       scroll-preserve-screen-position 1)
 
 ; cool colors like #1122ff
-(rainbow-mode 1)
+(add-hook 'text-mode-hook
+          (lambda ()
+            (rainbow-mode +1)))
+
+
+(setq frame-title-format
+      '("" invocation-name " - " (:eval (if (buffer-file-name)
+                                            (abbreviate-file-name (buffer-file-name))
+                                          "%b"))))
