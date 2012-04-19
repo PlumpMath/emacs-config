@@ -1,5 +1,3 @@
-;; Merge 2 lines
-(global-set-key (kbd "C-c j") 'join-line)
 
 ;; From Emacs Prelude
 (defun duplicate-current-line-or-region (arg)
@@ -57,6 +55,16 @@ original" (interactive)
   (push-mark (point) nil t)
   (end-of-line))
 
+(require 'autopair)
+(defun turn-autopair-mode-on ()
+  (autopair-mode))
+(setup-multiple-hooks '(lisp-mode-hook
+                        emacs-lisp-mode-hook
+                        text-mode-hook
+                        c-mode-common-hook
+                        python-mode-hook)
+                      'turn-autopair-mode-on)
+
 ;; duplicate a line
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
 ;; duplicate a line and comment the first
@@ -64,3 +72,6 @@ original" (interactive)
 (global-set-key (kbd "C-c l") 'mark-line)
 (global-set-key [(control shift up)] 'move-line-up)
 (global-set-key [(control shift down)]  'move-line-down)
+
+;; Merge 2 lines
+(global-set-key (kbd "C-c j") 'join-line)

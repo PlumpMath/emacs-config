@@ -33,6 +33,11 @@
 (defun switch-to-window-by-name (name)
   (select-window (get-buffer-window name)))
 
+;; Add function to multiple hooks
+(defun setup-multiple-hooks (hooks fn)
+  (dolist (hook hooks)
+    (add-hook hook fn)))
+
 ;; Configure packages
 (load-file (concat config-dir "01-jt-color-theme.el"))
 (load-file (concat config-dir "02-jt-backups.el"))
@@ -64,8 +69,8 @@
 (load-file (concat config-dir "28-jt-hideshow.el"))
 (load-file (concat config-dir "31-jt-auto-complete.el"))
 (load-file (concat config-dir "32-jt-helm.el"))
+(load-file (concat config-dir "33-jt-projectile.el"))
 (load-file (concat config-dir "29-jt-python.el"))
-(load-file (concat config-dir "30-jt-skeleton.el"))
 
 ;; TODO load in user specific config files
 

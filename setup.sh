@@ -18,7 +18,7 @@ if [[ $platform == 'linux' ]]; then
     # until emacs 24: https://launchpad.net/~cassou/+archive/emacs
     # sudo add-apt-repository ppa:cassou/emacs
     # sudo apt-get update
-    sudo apt-get install emacs-snapshot ack-grep git mercurial ipython pyflakes python-setuptools bzr
+    sudo apt-get install emacs-snapshot ack-grep git mercurial ipython pyflakes python-setuptools bzr exuberant-ctags
     sudo pip install rope ropemode
 elif [[ $platform == 'mac' ]]; then
     echo "Make sure emacs24, ack, git, ipython, pyflakes are installed"
@@ -66,6 +66,24 @@ fi
 cd helm
 make
 cd ..
+if [ ! -d projectile ]; then
+    echo "Pulling projectile"
+    git clone git://github.com/bbatsov/projectile
+else
+    echo "Updating projectile"
+    cd projectile
+    git pull -u
+    cd ..
+fi
+if [ ! -d autopair ]; then
+    echo "Pulling autopair"
+    svn co http://autopair.googlecode.com/svn/trunk autopair
+else
+    echo "Updating autopair"
+    cd autopair
+    svn up
+    cd ..
+fi
 if [ ! -d Pymacs ]; then
     echo "Pulling pymacs"
     git clone https://github.com/pinard/Pymacs.git
