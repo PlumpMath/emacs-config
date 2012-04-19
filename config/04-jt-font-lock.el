@@ -41,8 +41,12 @@
   (font-lock-add-keywords
    nil '(("\\<\\(TODO\\|FIXME\\|HACK\\||NOCOMMIT\\)"
           1 font-lock-warning-face t))))
-(add-hook 'text-mode-hook 'highlight-todos-on)
-(add-hook 'python-mode-hook 'highlight-todos-on)
+(setup-multiple-hooks '(lisp-mode-hook
+                        emacs-lisp-mode-hook
+                        text-mode-hook
+                        c-mode-common-hook
+                        python-mode-hook)
+                      'highlight-todos-on)
 
 ;; Font size
 (define-key global-map (kbd "C-+") 'text-scale-increase)

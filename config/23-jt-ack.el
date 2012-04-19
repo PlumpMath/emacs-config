@@ -18,10 +18,21 @@
     (setq ack-cmd (executable-find "ack"))
   (setq ack-cmd (executable-find "ack-grep")))
 
-(defun ack-grep ()
-  "Use ack for grep"
+;; TODO do ido?
+(defun ack-at-point-and-switch ()
+  "ack and a half at point"
   (interactive)
-  (compile (read-string "Run ack as: " (concat ack-cmd " --nogroup --nocolour " (thing-at-point 'symbol))))
-  (switch-to-window-by-name "*compilation*"))
+  (let ((dir (ack-and-a-half-read-dir)))
+    (ack-and-a-half-run dir
+                        t
+                        (read-from-minibuffer (concat "ack (dir: "
+                                                      dir
+                                                      "): ")
+                                              (thing-at-point 'symbol)
+                                              nil
+                                              nil
+                                              'ack-and-a-half-regexp-history
+                                              )))
+  (switch-to-window-by-name "*ack-and-a-half*"))
 
-(global-set-key (kbd "C-c C-a") 'ack-grep)
+(global-set-key (kbd "C-c C-a") 'ack-at-point-and-switch)
