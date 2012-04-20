@@ -9,9 +9,56 @@
 (require 'python-mode)
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 (require 'ipython)
-(setq ipython-completion-command-string "print ';'.join(__IP.Completer.all_completions('%s')) #PYTHON-MODE SILENT\n")
 
 ;; ipython completion using ido
+(setq ipython-completion-command-string "print ';'.join(__IP.Completer.all_completions('%s')) #PYTHON-MODE SILENT\n")
+(defvar ipython-completion-file-command-string "print ';'.join(__IP.Completer.file_matches('%s')) #PYTHON-MODE SILENT\n")
+(defvar ipython-all-completions "print ';'.join(__IP.complete('') #PYTHON-MODE SILENT\n")
+(defvar ipython-all-file-completions "print ';'.join(__IP.Completer.file_matches('') #PYTHON-MODE SILENT\n")
+
+(defvar file_match_cmds '("cd "
+                          "ls "
+                          "less "
+                          ))
+(setq file_match_cmds '("cd "
+                        "ls "
+                        "less "
+                        "mkdir "
+                        "cat "
+                        "mv "
+                        "rmdir "
+                        "rm "
+                        "cp "
+                        "ll "
+                        "lf "
+                        "lc "
+                        "ldir "
+                        "lx "
+                        "lk "
+                        "clear"
+                        ))
+
+(defun ipython-completion-args (pattern all)
+  (message all)
+  ;; first check if command is in file matches
+  (let ((file_match nil)
+        (all_match nil))
+    (if all
+        (dolist (cmd file_match_cmds)
+          (if (and (>= (length all) (length cmd)) (equalp cmd (substring all 0 (length cmd))))
+              (progn 
+                (message "%s %s" file_match cmd)
+                (setq file_match t)))))
+    (message "%s" file_match)
+    (cond ((and pattern (not file_match))
+           (format ipython-completion-command-string pattern))
+          ((and pattern file_match)
+           (format ipython-completion-file-command-string pattern))
+          (file_match
+           ipython-all-file-completions)
+          (t
+           ipython-all-completions))))
+
 (defun ipython-complete ()
   "Try to complete the python symbol before point. Only knows about the stuff
  the current *Python* session."
@@ -29,6 +76,7 @@
                               (point)))
          (end (point))
          (pattern (buffer-substring-no-properties beg end))
+         (all (buffer-substring-no-properties (point-at-bol) (point)))
          (completions nil)
          (completion-table nil)
          completion
@@ -39,7 +87,7 @@
                       (setq ugly-return (concat ugly-return string))
                       "")))))
     (process-send-string python-process
-                         (format ipython-completion-command-string pattern))
+                         (ipython-completion-args pattern all))
     (accept-process-output python-process)
     (setq completions
           (split-string (substring ugly-return 0 (position ?\n ugly-return)) sep))
