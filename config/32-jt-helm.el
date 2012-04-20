@@ -1,6 +1,5 @@
 (add-to-list 'load-path (concat thirdparty-dir "helm/"))
 (require 'helm-config)
-(require 'helm-elisp)
 
 (defalias 'regexp 'helm-regexp)
 (defalias 'mark-ring 'helm-mark-ring)

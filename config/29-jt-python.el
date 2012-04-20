@@ -231,8 +231,8 @@ The CMDLINE should be something like:
   (flymake-mode)
   (flymake-cursor-mode 1)
   (python-setup-checker "pyflakes %f")
-  (define-key py-mode-map (kbd "M-n") 'flymake-goto-next-error)
-  (define-key py-mode-map (kbd "M-p") 'flymake-goto-prev-error)
+  (define-key python-mode-map (kbd "M-n") 'flymake-goto-next-error)
+  (define-key python-mode-map (kbd "M-p") 'flymake-goto-prev-error)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -247,13 +247,14 @@ The CMDLINE should be something like:
 (autoload 'pymacs-load "pymacs" nil t)
 (autoload 'pymacs-autoload "pymacs")
 
+(pymacs-load "ropemacs" "rope-")
+
 ;; ropemacs
 (defun setup-ropemacs ()
   "Setup the ropemacs harness"
   ;; (setenv "PYTHONPATH"
   ;;         (concat
   ;;          (getenv "PYTHONPATH") path-separator))
-  (pymacs-load "ropemacs" "rope-")
 
   ;; Stops from erroring if there's a syntax err
   (setq ropemacs-codeassist-maxfixes 3)
@@ -278,8 +279,8 @@ The CMDLINE should be something like:
              (progn
                (setup-ropemacs)
                (flymake-python)
-               (define-key py-mode-map (kbd "C-S-<right>") 'python-shift-right)
-               (define-key py-mode-map (kbd "C-S-<left>") 'python-shift-left)
-               (define-key py-mode-map (kbd "C-m") 'newline-and-indent)
-               (define-key py-mode-map (kbd "M-a") 'python-nav-sentence-start)
-               (define-key py-mode-map (kbd "M-e") 'python-nav-sentence-end))))
+               (define-key python-mode-map (kbd "C-S-<right>") 'python-shift-right)
+               (define-key python-mode-map (kbd "C-S-<left>") 'python-shift-left)
+               (define-key python-mode-map (kbd "C-m") 'newline-and-indent)
+               (define-key python-mode-map (kbd "M-a") 'python-nav-sentence-start)
+               (define-key python-mode-map (kbd "M-e") 'python-nav-sentence-end))))
