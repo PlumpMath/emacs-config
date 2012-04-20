@@ -49,7 +49,6 @@
 (load-file (concat config-dir "08-jt-saving.el"))
 (load-file (concat config-dir "09-jt-fill-behavior.el"))
 (load-file (concat config-dir "10-jt-tramp-mode.el"))
-(load-file (concat config-dir "11-jt-navigation.el"))
 (load-file (concat config-dir "12-jt-smex.el"))
 (load-file (concat config-dir "13-jt-save-place.el"))
 (load-file (concat config-dir "14-jt-ido-mode.el"))
@@ -62,7 +61,6 @@
 (load-file (concat config-dir "21-jt-server.el"))
 (load-file (concat config-dir "22-jt-ediff.el"))
 (load-file (concat config-dir "23-jt-ack.el"))
-(load-file (concat config-dir "24-jt-google.el"))
 (load-file (concat config-dir "25-jt-flymake.el"))
 (load-file (concat config-dir "26-jt-regex.el"))
 (load-file (concat config-dir "27-jt-cc-mode.el"))
@@ -71,8 +69,8 @@
 (load-file (concat config-dir "32-jt-helm.el"))
 (load-file (concat config-dir "33-jt-projectile.el"))
 (load-file (concat config-dir "29-jt-python.el"))
+;; depends on helm
+(load-file (concat config-dir "24-jt-google.el"))
+(load-file (concat config-dir "11-jt-navigation.el"))
 
 ;; TODO load in user specific config files
-
-;; auto complete
-;; rope

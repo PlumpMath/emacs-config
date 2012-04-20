@@ -21,7 +21,7 @@ if [[ $platform == 'linux' ]]; then
     sudo apt-get install emacs-snapshot ack-grep git mercurial ipython pyflakes python-setuptools bzr exuberant-ctags
     sudo pip install rope ropemode
 elif [[ $platform == 'mac' ]]; then
-    echo "Make sure emacs24, ack, git, ipython, pyflakes are installed"
+    echo "Make sure emacs24, ack, git, mercurial, bzr, ipython, pyflakes, pip, exuberant ctags are installed"
     echo "Make sure pip install rope ropemode"
 fi
 
