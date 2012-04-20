@@ -39,7 +39,6 @@
                         ))
 
 (defun ipython-completion-args (pattern all)
-  (message all)
   ;; first check if command is in file matches
   (let ((file_match nil)
         (all_match nil))
@@ -47,9 +46,7 @@
         (dolist (cmd file_match_cmds)
           (if (and (>= (length all) (length cmd)) (equalp cmd (substring all 0 (length cmd))))
               (progn 
-                (message "%s %s" file_match cmd)
                 (setq file_match t)))))
-    (message "%s" file_match)
     (cond ((and pattern (not file_match))
            (format ipython-completion-command-string pattern))
           ((and pattern file_match)
