@@ -73,5 +73,6 @@
 (load-file (concat config-dir "24-jt-google.el"))
 (load-file (concat config-dir "11-jt-navigation.el"))
 (load-file (concat config-dir "34-jt-pretty-lambda.el"))
+(load-file (concat config-dir "35-jt-pylookup.el"))
 
 ;; TODO load in user specific config files

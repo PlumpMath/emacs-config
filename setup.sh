@@ -36,6 +36,18 @@ if [ ! -d $INSTALLDIR/.emacs.d/thirdparty ]; then
 fi
 
 pushd $INSTALLDIR/.emacs.d/thirdparty
+if [ ! -d pylookup ]; then
+    echo "Pulling pylookup..."
+    git clone git://github.com/tsgates/pylookup.git
+else
+    echo "Updating pylookup..."
+    cd pylookup
+    git pull -u
+    cd ..
+fi
+cd pylookup
+make
+cd ..
 if [ ! -d emacs-color-theme-solarized ]; then
     echo "Pulling emacs-color-theme-solarized..."
     git clone git://github.com/sellout/emacs-color-theme-solarized.git
