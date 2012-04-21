@@ -41,20 +41,22 @@
 (defun ipython-completion-args (pattern all)
   ;; first check if command is in file matches
   (let ((file_match nil)
-        (all_match nil))
+        (all_match nil)
+        (result nil))
     (if all
         (dolist (cmd file_match_cmds)
           (if (and (>= (length all) (length cmd)) (equalp cmd (substring all 0 (length cmd))))
               (progn 
                 (setq file_match t)))))
     (cond ((and pattern (not file_match))
-           (format ipython-completion-command-string pattern))
+           (setq result (format ipython-completion-command-string pattern)))
           ((and pattern file_match)
-           (format ipython-completion-file-command-string pattern))
+           (setq result (format ipython-completion-file-command-string pattern)))
           (file_match
-           ipython-all-file-completions)
+           (setq result ipython-all-file-completions))
           (t
-           ipython-all-completions))))
+           (setq result ipython-all-completions)))
+    result))
 
 (defun ipython-complete ()
   "Try to complete the python symbol before point. Only knows about the stuff
@@ -163,7 +165,18 @@ script, and set to python-mode, and pdbtrack will find it.)"
             (pop-to-buffer origbuf t)))))))
 
 
+(defun annotate-pdb ()
+  (interactive)
+  (highlight-lines-matching-regexp "import pdb")
+  (highlight-lines-matching-regexp "pdb.set_trace()"))
+(add-hook 'python-mode-hook 'annotate-pdb)
 
+(defun python-add-breakpoint ()
+  (interactive)
+  (py-newline-and-indent)
+  (insert "import ipdb; ipdb.set_trace()")
+  (highlight-lines-matching-regexp "^[ 	]*import ipdb; ipdb.set_trace()"))
+(define-key python-mode-map (kbd "C-c C-t") 'python-add-breakpoint)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; FLYMAKE FOR PYTHON
 ;;;;;;;;;;;;;;;;;;;;;;;;;;

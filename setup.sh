@@ -19,11 +19,10 @@ if [[ $platform == 'linux' ]]; then
     # sudo add-apt-repository ppa:cassou/emacs
     # sudo apt-get update
     sudo apt-get install emacs-snapshot ack-grep git mercurial ipython pyflakes python-setuptools bzr exuberant-ctags
-    sudo pip install rope ropemode
 elif [[ $platform == 'mac' ]]; then
     echo "Make sure emacs24, ack, git, mercurial, bzr, ipython, pyflakes, pip, exuberant ctags are installed"
-    echo "Make sure pip install rope ropemode"
 fi
+sudo pip install rope ropemode ipdb reimport
 
 echo "Fixing permissions..."
 chmod u=rwx,g=r,o=r setup.sh config src 
