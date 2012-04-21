@@ -55,15 +55,9 @@ original" (interactive)
   (push-mark (point) nil t)
   (end-of-line))
 
+(add-to-list 'load-path (concat thirdparty-dir "autopair/"))
 (require 'autopair)
-(defun turn-autopair-mode-on ()
-  (autopair-mode))
-(setup-multiple-hooks '(lisp-mode-hook
-                        emacs-lisp-mode-hook
-                        text-mode-hook
-                        c-mode-common-hook
-                        python-mode-hook)
-                      'turn-autopair-mode-on)
+(autopair-global-mode)
 
 ;; duplicate a line
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
