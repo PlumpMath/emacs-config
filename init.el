@@ -15,6 +15,7 @@
 (defvar thirdparty-elisp-dir (concat install-dir "thirdparty/")
   "Location of third party elisp libraries.")
 
+(add-to-list 'load-path thirdparty-elisp-dir)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; User configurable packages, folders, options
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

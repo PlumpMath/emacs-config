@@ -72,5 +72,6 @@
 ;; depends on helm
 (load-file (concat config-dir "24-jt-google.el"))
 (load-file (concat config-dir "11-jt-navigation.el"))
+(load-file (concat config-dir "34-jt-pretty-lambda.el"))
 
 ;; TODO load in user specific config files
