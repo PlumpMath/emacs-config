@@ -121,6 +121,19 @@ echo "Building ropemacs"
 cd ropemacs
 sudo python setup.py install
 cd ..
+if [ ! -d ipython ]; then
+    echo "Pulling ipython"
+    git clone git://github.com/ipython/ipython.git
+else
+    echo "Updating ipython"
+    cd ipython
+    git pull -u
+    cd ..
+fi
+echo "Building ipython"
+cd ipython
+sudo python setup.py install
+cd ..
 popd
 
 if [[ $platform == 'linux' ]]; then

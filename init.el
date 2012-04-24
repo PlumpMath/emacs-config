@@ -28,7 +28,6 @@
                               flymake
                               flymake-cursor
                               auto-complete
-                              ipython
                               )
   "Packages to be installed from marmalade.")
 
