@@ -17,7 +17,7 @@
 (defalias 'etags 'regenerate-tags)
 
 ;; find in project
-(define-key projectile-mode-map (kbd "C-x f") 'projectile-jump-to-project-file)
+(define-key projectile-mode-map (kbd "C-x f") 'projectile-find-file)
 (defalias 'projectile-refresh 'projectile-invalidate-project-cache)
 (setq projectile-enable-caching t)
 (projectile-global-mode)

@@ -35,7 +35,7 @@
 ;; occur on thing at point with helm
 (defun occur-thing-at-point ()
   (interactive)
-  (occur-with-helm (thing-at-point 'symbol)))
+  (occur-with-helm (entity-at-point)))
 (global-set-key (kbd "C-c C-o") 'occur-thing-at-point)
 
 (define-key isearch-mode-map (kbd "C-w") 'isearch-yank-symbol)

@@ -11,24 +11,24 @@
 (define-key ac-complete-mode-map "\M-n" 'ac-next)
 (define-key ac-complete-mode-map "\M-p" 'ac-previous)
 
-;; ropemacs integration
-(defun ac-ropemacs-candidates ()
-  (mapcar (lambda (completion)
-      (concat ac-prefix completion))
-    (rope-completions)))
+;; ;; ropemacs integration
+;; (defun ac-ropemacs-candidates ()
+;;   (mapcar (lambda (completion)
+;;       (concat ac-prefix completion))
+;;     (rope-completions)))
 
-(ac-define-source nropemacs
-  '((candidates . ac-ropemacs-candidates)
-    (symbol     . "p")))
+;; (ac-define-source nropemacs
+;;   '((candidates . ac-ropemacs-candidates)
+;;     (symbol     . "p")))
 
-(ac-define-source nropemacs-dot
-  '((candidates . ac-ropemacs-candidates)
-    (symbol     . "p")
-    (prefix     . c-dot)
-    (requires   . 0)))
+;; (ac-define-source nropemacs-dot
+;;   '((candidates . ac-ropemacs-candidates)
+;;     (symbol     . "p")
+;;     (prefix     . c-dot)
+;;     (requires   . 0)))
 
-(defun ac-nropemacs-setup ()
-  (setq ac-sources (append '(ac-source-nropemacs
-                             ac-source-nropemacs-dot) ac-sources)))
+;; (defun ac-nropemacs-setup ()
+;;   (setq ac-sources (append '(ac-source-nropemacs
+;;                              ac-source-nropemacs-dot) ac-sources)))
 
-(add-hook 'rope-open-project-hook 'ac-nropemacs-setup)
+;; (add-hook 'rope-open-project-hook 'ac-nropemacs-setup)

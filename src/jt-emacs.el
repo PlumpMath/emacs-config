@@ -38,6 +38,15 @@
   (dolist (hook hooks)
     (add-hook hook fn)))
 
+;; Get identifier at point
+(defun entity-at-point ()
+  (interactive)
+  (let* ((beg (save-excursion (skip-chars-backward "a-z0-9A-Z_./\-" (point-at-bol))
+                              (point)))
+         (end (save-excursion (skip-chars-forward "a-z0-9A-Z_./\-" (point-at-eol))
+                              (point))))
+    (buffer-substring beg end)))
+
 ;; Configure packages
 (load-file (concat config-dir "01-jt-color-theme.el"))
 (load-file (concat config-dir "02-jt-backups.el"))
@@ -64,15 +73,16 @@
 (load-file (concat config-dir "25-jt-flymake.el"))
 (load-file (concat config-dir "26-jt-regex.el"))
 (load-file (concat config-dir "27-jt-cc-mode.el"))
-(load-file (concat config-dir "28-jt-hideshow.el"))
-(load-file (concat config-dir "31-jt-auto-complete.el"))
+;(load-file (concat config-dir "28-jt-hideshow.el"))
+;; helm + helm dependencies
 (load-file (concat config-dir "32-jt-helm.el"))
-(load-file (concat config-dir "33-jt-projectile.el"))
-(load-file (concat config-dir "29-jt-python.el"))
-;; depends on helm
 (load-file (concat config-dir "24-jt-google.el"))
 (load-file (concat config-dir "11-jt-navigation.el"))
-(load-file (concat config-dir "34-jt-pretty-lambda.el"))
+;; too expensive
+(load-file (concat config-dir "31-jt-auto-complete.el"))
+(load-file (concat config-dir "33-jt-projectile.el"))
+(load-file (concat config-dir "29-jt-python.el"))
 (load-file (concat config-dir "35-jt-pylookup.el"))
-
-;; TODO load in user specific config files
+(load-file (concat config-dir "34-jt-pretty-lambda.el"))
+(load-file (concat config-dir "36-jt-undo-tree.el"))
+;; depends on helm

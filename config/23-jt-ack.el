@@ -13,7 +13,7 @@
                         (read-from-minibuffer (concat "ack (dir: "
                                                       dir
                                                       "): ")
-                                              (thing-at-point 'symbol)
+                                              (entity-at-point)
                                               nil
                                               nil
                                               'ack-and-a-half-regexp-history

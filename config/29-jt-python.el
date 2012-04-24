@@ -27,7 +27,7 @@
 (defun python-flymake-create-copy-file ()
   "Create a copy local file"
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                     'flymake-create-temp-inplace)))
+                     'flymake-create-temp-intemp)))
     (file-relative-name
      temp-file
      (file-name-directory buffer-file-name))))
@@ -85,61 +85,16 @@ The CMDLINE should be something like:
   (require 'flymake-cursor)
   (flymake-mode)
   (flymake-cursor-mode 1)
+  (setq flymake-run-in-place nil)
+  (setq temporary-file-directory "~/.emacs.d/tmp")
   (python-setup-checker "pyflakes %f")
   (define-key python-mode-map (kbd "M-n") 'flymake-goto-next-error)
   (define-key python-mode-map (kbd "M-p") 'flymake-goto-prev-error)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Ropemacs
+;; Navigation
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; pymacs
-(add-to-list 'load-path (concat thirdparty-dir "Pymacs/"))
-(autoload 'pymacs-apply "pymacs")
-(autoload 'pymacs-call "pymacs")
-(autoload 'pymacs-eval "pymacs" nil t)
-(autoload 'pymacs-exec "pymacs" nil t)
-(autoload 'pymacs-load "pymacs" nil t)
-(autoload 'pymacs-autoload "pymacs")
-
-(pymacs-load "ropemacs" "rope-")
-
-(defun ropemacs-complete ()
-  (interactive)
-  (let* ((beg (save-excursion (skip-chars-backward "a-z0-9A-Z_./\-" (point-at-bol))
-                              (point)))
-         (end (point))
-         (pattern (buffer-substring-no-properties beg end))
-         (completions (mapcar (lambda (c) (concat pattern c))
-                              (rope-completions)))
-         (result nil))
-    (cond ((= 1 (length completions)) 
-           (setq result (car completions)))
-          (completions
-           (setq result (completing-read
-                         "Completion: "
-                         (all-completions pattern completions)))))
-    (if result
-        (progn
-          (delete-char (- (length pattern)))
-          (insert result)))))
-
-;; ropemacs
-(defun setup-ropemacs ()
-  "Setup the ropemacs harness"
-  ;; (setenv "PYTHONPATH"
-  ;;         (concat
-  ;;          (getenv "PYTHONPATH") path-separator))
-
-  ;; Stops from erroring if there's a syntax err
-  (setq ropemacs-codeassist-maxfixes 3)
-
-  ;; Configurations
-  (setq ropemacs-guess-project t)
-  (setq ropemacs-enable-autoimport t)
-  (setq ropemacs-autoimport-modules '("os" "shutil" "sys" "logging"))
-  (define-key python-mode-map (kbd "C-<tab>") 'ropemacs-complete))
-
 (defun python-info-line-ends-backslash-p (&optional line-number)
   "Return non-nil if current line ends with backslash.
 With optional argument LINE-NUMBER, check that line instead."
@@ -180,6 +135,58 @@ With optional argument LINE-NUMBER, check that line instead."
                      (python-info-ppss-context 'paren))
                 (forward-line 1)))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Ropemacs
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; pymacs
+(add-to-list 'load-path (concat thirdparty-dir "Pymacs/"))
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
+(autoload 'pymacs-autoload "pymacs")
+
+(setq ropemacs-enable-shortcuts nil)
+(pymacs-load "ropemacs" "rope-")
+
+(defun ropemacs-complete ()
+  (interactive)
+  (let* ((beg (save-excursion (skip-chars-backward "a-z0-9A-Z_./\-" (point-at-bol))
+                              (point)))
+         (end (point))
+         (pattern (buffer-substring-no-properties beg end))
+         (completions (mapcar (lambda (c) (concat pattern c))
+                              (rope-completions)))
+         (result nil))
+    (cond ((= 1 (length completions)) 
+           (setq result (car completions)))
+          (completions
+           (setq result (completing-read
+                         "Completion: "
+                         (all-completions pattern completions)))))
+    (if result
+        (progn
+          (delete-char (- (length pattern)))
+          (insert result)))))
+
+;; ropemacs
+(defun setup-ropemacs ()
+  "Setup the ropemacs harness"
+  ;; (setenv "PYTHONPATH"
+  ;;         (concat
+  ;;          (getenv "PYTHONPATH") path-separator))
+
+  ;; Stops from erroring if there's a syntax err
+  (setq ropemacs-codeassist-maxfixes 3)
+
+  ;; Configurations
+  (setq ropemacs-guess-project t)
+  (setq ropemacs-enable-autoimport t)
+  (setq ropemacs-autoimport-modules '("os" "shutil" "sys" "logging"))
+  (define-key python-mode-map (kbd "C-<tab>") 'ropemacs-complete))
+
+
 ;; new keybindings
 (add-hook 'python-mode-hook
           '(lambda () 
@@ -200,4 +207,6 @@ With optional argument LINE-NUMBER, check that line instead."
                (define-key python-mode-map (kbd "C-a") 'python-nav-sentence-start)
                (define-key python-mode-map (kbd "C-e") 'python-nav-sentence-end)
                (define-key python-mode-map (kbd "<backtab>") 'ipython-complete)
+               (define-key python-mode-map (kbd "C-c g") 'google-suggest)
+               (define-key python-mode-map (kbd "C-c C-a") 'ack-at-point-and-switch) ; this is taken by mark-line
 )))

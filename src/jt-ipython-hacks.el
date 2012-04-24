@@ -21,6 +21,7 @@
          (end (point))
          (line (buffer-substring-no-properties (point-at-bol) end))
          (pattern (buffer-substring-no-properties beg end))
+         (ipython-completion-command-string "print(';'.join(get_ipython().complete('%s', '%s')[1])) #PYTHON-MODE SILENT\n")
          (completions nil)
          (completion-table nil)
          completion
@@ -30,6 +31,7 @@
                     (lambda (string)
                       (setq ugly-return (concat ugly-return string))
                       "")))))
+    ;(message "%s" (format ipython-completion-command-string pattern line))
     (process-send-string python-process
                          (format ipython-completion-command-string pattern line))
     (accept-process-output python-process)
