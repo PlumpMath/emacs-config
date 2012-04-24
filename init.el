@@ -51,3 +51,6 @@
 
 ;; Configurations
 (load (concat library-dir "jt-emacs.el"))
+
+
+;; TODO fix indentation on ipython

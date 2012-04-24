@@ -21,8 +21,17 @@ if [[ $platform == 'linux' ]]; then
     sudo apt-get install emacs-snapshot ack-grep git mercurial ipython pyflakes python-setuptools bzr exuberant-ctags
 elif [[ $platform == 'mac' ]]; then
     echo "Make sure emacs24, ack, git, mercurial, bzr, ipython, pyflakes, pip, exuberant ctags are installed"
+    echo "(Try http://emacsformacosx.com/builds)"
+    echo "Make sure you've replaced /usr/bin/emacs "
+    if `diff /usr/bin/emacs ./thirdparty/mac-emacs-script >/dev/null` ; then
+        echo "/usr/bin/emacs fix is done"
+    else
+        echo "fixing /usr/bin/emacs"
+        sudo mv /usr/bin/emacs /usr/bin/emacs.backup
+        sudo cp ./thirdparty/mac-emacs-script /usr/bin/emacs
+    fi
 fi
-sudo pip install rope ropemode ipdb reimport
+sudo pip install rope ropemode ipdb reimport readline
 
 echo "Fixing permissions..."
 chmod u=rwx,g=r,o=r setup.sh config src 
