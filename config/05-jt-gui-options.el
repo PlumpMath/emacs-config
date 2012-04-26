@@ -48,7 +48,12 @@
 
 ; Prefer horizontal split
 (setq split-height-threshold nil)
-(setq split-width-threshold (min (- (window-width) 1) 160))
+
+(defun update-split-width-thresh ()
+  (setq split-width-threshold (max split-width-threshold (min (- (window-width) 1) 160))))
+(setq split-width-threshold 0)
+(update-split-width-thresh)
+(add-hook 'window-configuration-change-hook 'update-split-width-thresh)
 
 ; Nicer scrolling
 (setq scroll-margin 0
