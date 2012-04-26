@@ -75,6 +75,3 @@ original" (interactive)
 (global-set-key (kbd "C-c l") 'mark-line)
 (global-set-key [(control shift up)] 'move-line-up)
 (global-set-key [(control shift down)]  'move-line-down)
-
-;; Merge 2 lines
-(global-set-key (kbd "C-c j") 'join-line)

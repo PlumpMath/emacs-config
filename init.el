@@ -25,6 +25,7 @@
                               expand-region
                               ack-and-a-half
                               rainbow-mode
+                              rainbow-delimiters
                               flymake
                               flymake-cursor
                               auto-complete
@@ -55,4 +56,12 @@
 
 ;; TODO tramp-mode: python-mode flymake or something is busted, projectile is busted
 ;; TODO fix indentation on ipython...readline?
-;; TODO fix stupid windows being created
+;; TODO fix last cmd on ipython...
+;; TODO fix all ipython weirdness; 
+;; foobar
+;; TODO ipython with ansi-term???
+;;  need to implement ido completion (could probably do that?)
+;;  need to implement pdbtrack
+;;  need to implement send to buffer
+
+;; TODO ipython need to implement group forward / back

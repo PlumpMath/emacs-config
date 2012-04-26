@@ -50,7 +50,7 @@
 (setq split-height-threshold nil)
 
 (defun update-split-width-thresh ()
-  (setq split-width-threshold (max split-width-threshold (min (- (window-width) 1) 160))))
+  (setq split-width-threshold (max split-width-threshold (min (- (window-width) 10) 160))))
 (setq split-width-threshold 0)
 (update-split-width-thresh)
 (add-hook 'window-configuration-change-hook 'update-split-width-thresh)
@@ -60,11 +60,23 @@
       scroll-conservatively 100000
       scroll-preserve-screen-position 1)
 
-; cool colors like #1122ff
-(add-hook 'text-mode-hook
-          (lambda ()
-            (rainbow-mode +1)))
+; cool colors like #11a2ff #11ff81
+(defun turn-rainbow-mode-on ()
+  (rainbow-mode +1))
+(setup-multiple-hooks '(lisp-mode-hook
+                        emacs-lisp-mode-hook
+                        text-mode-hook
+                        c-mode-common-hook
+                        python-mode-hook)
+                      'turn-rainbow-mode-on)
 
+(require 'rainbow-delimiters)
+(setup-multiple-hooks '(lisp-mode-hook
+                        emacs-lisp-mode-hook
+                        text-mode-hook
+                        c-mode-common-hook
+                        python-mode-hook)
+                      'rainbow-delimiters-mode)
 
 (setq frame-title-format
       '("" invocation-name " - " (:eval (if (buffer-file-name)
