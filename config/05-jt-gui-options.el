@@ -48,8 +48,7 @@
 
 ; Prefer horizontal split
 (setq split-height-threshold nil)
-(setq split-width-threshold 100)
-
+(setq split-width-threshold (min (- (window-width) 1) 160))
 
 ; Nicer scrolling
 (setq scroll-margin 0
