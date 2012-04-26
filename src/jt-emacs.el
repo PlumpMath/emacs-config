@@ -27,7 +27,7 @@
                     (equal root-dir (expand-file-name cur-dir))))
       (setq cur-dir (concat cur-dir "/..")))
     (if (file-exists-p (concat cur-dir "/" filename))
-        (funcall func (concat cur-dir "/" filename))
+        (funcall func (expand-file-name (concat cur-dir "/" filename)))
       (message (concat "Failed to find: " filename)))))
 
 (defun switch-to-window-by-name (name)
