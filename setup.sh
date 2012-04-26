@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 INSTALLDIR=$HOME
 
 #########################################
@@ -18,7 +20,7 @@ if [[ $platform == 'linux' ]]; then
     # until emacs 24: https://launchpad.net/~cassou/+archive/emacs
     # sudo add-apt-repository ppa:cassou/emacs
     # sudo apt-get update
-    sudo apt-get install emacs-snapshot ack-grep git mercurial ipython pyflakes python-setuptools bzr exuberant-ctags
+    sudo apt-get install emacs-snapshot ack-grep git mercurial ipython pyflakes python-setuptools bzr exuberant-ctags python-dev libncurses5-dev autoconf texinfo
 elif [[ $platform == 'mac' ]]; then
     echo "Make sure emacs24, ack, git, mercurial, bzr, ipython, pyflakes, pip, exuberant ctags are installed"
     echo "(Try http://emacsformacosx.com/builds)"
@@ -56,24 +58,31 @@ fi
 cd pylookup
 make
 cd ..
-if [ ! -d emacs-color-theme-solarized ]; then
-    echo "Pulling emacs-color-theme-solarized..."
-    git clone git://github.com/sellout/emacs-color-theme-solarized.git
-else
-    echo "Updating emacs-color-theme-solarized..."
-    cd emacs-color-theme-solarized
-    git pull -u
-    cd ..
-fi
 if [ ! -d python-mode ]; then
     echo "Pulling python-mode"
     bzr branch lp:python-mode
 else
     echo "Updating python-mode"
     cd python-mode
-    bzr merge
+    bzr merge --pull
     cd ..
 fi
+if [ ! -d dvc ]; then
+    echo "Pulling dvc"
+    bzr branch http://bzr.xsteve.at/dvc/
+else
+    echo "Updating dvc"
+    cd dvc
+    bzr merge --pull
+    cd ..
+fi
+cd dvc
+mkdir -p build
+autoconf
+cd build
+../configure
+make
+cd ../..
 if [ ! -d helm ]; then
     echo "Pulling helm"
     git clone git://github.com/emacs-helm/helm.git

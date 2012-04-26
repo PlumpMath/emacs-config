@@ -85,4 +85,4 @@
 (load-file (concat config-dir "35-jt-pylookup.el"))
 (load-file (concat config-dir "34-jt-pretty-lambda.el"))
 (load-file (concat config-dir "36-jt-undo-tree.el"))
-;; depends on helm
+(load-file (concat config-dir "37-jt-dvc.el"))
