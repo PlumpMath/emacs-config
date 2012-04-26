@@ -40,6 +40,11 @@ chmod u=rwx,g=r,o=r setup.sh config src
 chmod -R u=rw,g=r,o=r config/*
 chmod -R u=rw,g=r,o=r src/*
 
+# create temporary flymake folder
+if [ ! -d $INSTALLDIR/.emacs.d/tmp ]; then
+    mkdir -p $INSTALLDIR/.emacs.d/tmp
+fi
+
 echo "Fetching 3rd party packages..."
 if [ ! -d $INSTALLDIR/.emacs.d/thirdparty ]; then
     mkdir -p $INSTALLDIR/.emacs.d/thirdparty

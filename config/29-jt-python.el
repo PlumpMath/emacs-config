@@ -87,10 +87,7 @@ The CMDLINE should be something like:
   (flymake-cursor-mode 1)
   (setq flymake-run-in-place nil)
   (setq temporary-file-directory "~/.emacs.d/tmp")
-  (python-setup-checker "pyflakes %f")
-  (define-key python-mode-map (kbd "M-n") 'flymake-goto-next-error)
-  (define-key python-mode-map (kbd "M-p") 'flymake-goto-prev-error)
-  )
+  (python-setup-checker "pyflakes %f"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Navigation
@@ -198,15 +195,21 @@ With optional argument LINE-NUMBER, check that line instead."
                (find-file-and-run-fn ".ropeproject"
                                     (lambda (name)
                                       (rope-open-project name)))
-               (flymake-python)
-               (define-key python-mode-map (kbd "C-S-<right>") 'python-shift-right)
-               (define-key python-mode-map (kbd "C-S-<left>") 'python-shift-left)
-               (define-key python-mode-map (kbd "C-m") 'newline-and-indent)
-               (define-key python-mode-map (kbd "M-a") 'move-beginning-of-line)
-               (define-key python-mode-map (kbd "M-e") 'move-end-of-line)
-               (define-key python-mode-map (kbd "C-a") 'python-nav-sentence-start)
-               (define-key python-mode-map (kbd "C-e") 'python-nav-sentence-end)
-               (define-key python-mode-map (kbd "<backtab>") 'ipython-complete)
-               (define-key python-mode-map (kbd "C-c g") 'google-suggest)
-               (define-key python-mode-map (kbd "C-c C-a") 'ack-at-point-and-switch) ; this is taken by mark-line
-)))
+               (flymake-python))))
+
+(defun python-mode-keybindings ()
+  (define-key python-mode-map (kbd "C-S-<right>") 'python-shift-right)
+  (define-key python-mode-map (kbd "C-S-<left>") 'python-shift-left)
+  (define-key python-mode-map (kbd "C-m") 'newline-and-indent)
+  (define-key python-mode-map (kbd "M-a") 'move-beginning-of-line)
+  (define-key python-mode-map (kbd "M-e") 'move-end-of-line)
+  (define-key python-mode-map (kbd "C-a") 'python-nav-sentence-start)
+  (define-key python-mode-map (kbd "C-e") 'python-nav-sentence-end)
+  (define-key python-mode-map (kbd "<backtab>") 'ipython-complete)
+  (define-key python-mode-map (kbd "C-c g") 'google-suggest)
+  (define-key python-mode-map (kbd "C-c C-a") 'ack-at-point-and-switch) ; this is taken by mark-line
+  (define-key python-mode-map (kbd "M-n") 'flymake-goto-next-error)
+  (define-key python-mode-map (kbd "M-p") 'flymake-goto-prev-error))
+
+;; keybindings are appended to hook so they overwrite other settings
+(add-hook 'python-mode-hook 'python-mode-keybindings t)
