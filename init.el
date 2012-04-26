@@ -53,4 +53,6 @@
 (load (concat library-dir "jt-emacs.el"))
 
 
-;; TODO fix indentation on ipython
+;; TODO tramp-mode: python-mode flymake or something is busted, projectile is busted
+;; TODO fix indentation on ipython...readline?
+;; TODO fix stupid windows being created
