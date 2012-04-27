@@ -181,21 +181,22 @@ With optional argument LINE-NUMBER, check that line instead."
   (setq ropemacs-guess-project t)
   (setq ropemacs-enable-autoimport t)
   (setq ropemacs-autoimport-modules '("os" "shutil" "sys" "logging"))
-  (define-key python-mode-map (kbd "C-<tab>") 'ropemacs-complete))
+  (define-key python-mode-map (kbd "C-<tab>") 'ropemacs-complete)
+  (define-key python-mode-map (kbd "C-x g") 'rope-goto-definition)
+)
 
 
 ;; new keybindings
-(add-hook 'python-mode-hook
-          '(lambda () 
-             (progn
-               (setup-ropemacs)
-
-               ;; Adding hook to automatically open a rope project if there is
-               ;; one in the current or in the upper level directory
-               (find-file-and-run-fn ".ropeproject"
-                                    (lambda (name)
-                                      (rope-open-project name)))
-               (flymake-python))))
+(defun setup-python-mode ()
+  (progn
+    ;; Adding hook to automatically open a rope project if there is
+    ;; one in the current or in the upper level directory
+    ;; (find-file-and-run-fn ".ropeproject"
+    ;;                       (lambda (name)
+    ;;                         (rope-open-project name)))
+    (setup-ropemacs)
+    (flymake-python)))
+(add-hook 'python-mode-hook 'setup-python-mode)
 
 (defun python-mode-keybindings ()
   (define-key python-mode-map (kbd "C-S-<right>") 'python-shift-right)

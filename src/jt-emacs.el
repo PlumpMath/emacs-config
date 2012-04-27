@@ -88,3 +88,5 @@
 (load-file (concat config-dir "37-jt-dvc.el"))
 (load-file (concat config-dir "38-jt-multiterm.el"))
 (load-file (concat config-dir "39-jt-sysadmin.el"))
+(load-file (concat config-dir "40-jt-bookmark.el"))
+(load-file (concat config-dir "41-jt-winner.el"))

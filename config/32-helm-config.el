@@ -22,10 +22,9 @@
                                          helm-mode-line-string)))
       (setq mode-line-format (default-value 'mode-line-format)))
   ;; Setup header-line.
-  (let* ((hlstr (substring 
-                 (helm-interpret-value
-                  (assoc-default 'header-line source) source)
-                 0 (window-width)))
+  (let* ((hlstr (helm-interpret-value
+                  (assoc-default 'header-line source) source))
+         (hlstr (substring hlstr 0 (min (length hlstr) (window-width))))
          (hlend (make-string (- (window-width) (length hlstr)) ? )))
     (setq header-line-format
           (propertize (concat " " hlstr hlend) 'face 'helm-header))))

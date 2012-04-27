@@ -3,9 +3,7 @@
 (require 'helm-net) ; google
 (require 'helm-regexp)
 
-(global-set-key (kbd "C-x C-h") 'helm-mini)
-(setq helm-occur-mode-line "") ; keep occur from crashing
-(setq-default helm-mode-line-string "") ; keep from crashing if we don't helm-mini first
+(global-set-key (kbd "C-x h") 'helm-mini)
 
 (defalias 'regexp 'helm-regexp)
 (defalias 'mark-ring 'helm-mark-ring)
@@ -15,3 +13,31 @@
 (defalias 'ucs 'helm-ucs)
 (defalias 'colors 'helm-colors)
 (defalias 'calculator 'helm-calculator)
+
+(defun helm-display-mode-line (source)
+  "Setup mode-line and header-line for `helm-buffer'."
+  (set (make-local-variable 'helm-mode-line-string)
+       (helm-interpret-value (or (assoc-default 'mode-line source)
+                                 (default-value 'helm-mode-line-string))
+                             source))
+  ;; Setup mode-line.
+  (if helm-mode-line-string
+      (setq mode-line-format
+            '(" " mode-line-buffer-identification " "
+              (line-number-mode "L%l") " " (helm-follow-mode "(HF) ")
+              (:eval (helm-show-candidate-number
+                      (when (listp helm-mode-line-string)
+                        (car helm-mode-line-string))))
+              " " helm-mode-line-string-real " -%-")
+            helm-mode-line-string-real
+            (substitute-command-keys (if (listp helm-mode-line-string)
+                                         (cadr helm-mode-line-string)
+                                         helm-mode-line-string)))
+      (setq mode-line-format (default-value 'mode-line-format)))
+  ;; Setup header-line.
+  (let* ((hlstr (helm-interpret-value
+                  (assoc-default 'header-line source) source))
+         (hlstr (substring hlstr 0 (min (length hlstr) (window-width))))
+         (hlend (make-string (- (window-width) (length hlstr)) ? )))
+    (setq header-line-format
+          (propertize (concat " " hlstr hlend) 'face 'helm-header))))
