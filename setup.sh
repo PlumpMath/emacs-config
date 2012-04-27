@@ -174,7 +174,7 @@ else
     echo "Init files are already linked"
 fi
 
-
+echo "maybe add to bashrc: alias E=\"SUDO_EDITOR=\\\"emacsclient -c -a emacs\\\" sudoedit\""
 
 # find . -name *.tar.gz | xargs -n1 tar xvzf
 # find . -name *.tar.bz2 | xargs -n1 tar xvjpf
