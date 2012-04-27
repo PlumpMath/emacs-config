@@ -1,0 +1,5 @@
+(defalias 'book 'bookmark-set)
+(defalias 'bookj 'bookmark-jump)
+(defalias 'bookl 'bookmark-bmenu-list)
+(setq bookmark-default-file (concat user-dir ".emacs.d/bookmarks")
+      bookmark-save-flag 1)
