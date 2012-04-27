@@ -210,7 +210,8 @@ With optional argument LINE-NUMBER, check that line instead."
   (define-key python-mode-map (kbd "M-p") 'flymake-goto-prev-error))
 
 (defun py-shell-keybindings ()
-  (define-key inferior-python-mode-map (kbd "C-j") 'ipython-send-and-indent))
+  (define-key inferior-python-mode-map (kbd "C-j") 'ipython-send-and-indent)
+  (define-key inferior-python-mode-map (kbd "<return>") 'ipython-send-and-indent))
 (add-hook 'py-shell-hook 'py-shell-keybindings t)
 
 
