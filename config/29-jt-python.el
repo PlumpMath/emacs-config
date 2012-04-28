@@ -195,7 +195,17 @@ With optional argument LINE-NUMBER, check that line instead."
     ;;                       (lambda (name)
     ;;                         (rope-open-project name)))
     (setup-ropemacs)
-    (flymake-python)))
+    (flymake-python)
+
+    ;; change hook to use special complete function
+    (setq tab-always-indent `complete)
+
+    (remove-hook 'completion-at-point-functions
+                 py-complete-function 'local)
+    (setq py-complete-function 'ropemacs-complete)
+    (add-hook 'completion-at-point-functions
+              py-complete-function 'local)))
+
 (add-hook 'python-mode-hook 'setup-python-mode)
 
 (defun python-mode-keybindings ()

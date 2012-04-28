@@ -2,6 +2,7 @@
 (require 'helm-config)
 (require 'helm-net) ; google
 (require 'helm-regexp)
+(require 'helm-misc) ; helm narrowing by default
 
 (global-set-key (kbd "C-x h") 'helm-mini)
 
@@ -14,6 +15,10 @@
 (defalias 'colors 'helm-colors)
 (defalias 'calculator 'helm-calculator)
 
+;; Hack to prevent helm from complaining
+;(setq helm-mode-line-string "")
+
+;; Hack for helm screens shorter than mode line width
 (defun helm-display-mode-line (source)
   "Setup mode-line and header-line for `helm-buffer'."
   (set (make-local-variable 'helm-mode-line-string)
@@ -41,3 +46,4 @@
          (hlend (make-string (- (window-width) (length hlstr)) ? )))
     (setq header-line-format
           (propertize (concat " " hlstr hlend) 'face 'helm-header))))
+
