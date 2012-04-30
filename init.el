@@ -48,16 +48,17 @@
 (defvar auto-complete-dir (concat user-dir ".emacs.d/elpa/auto-complete-1.4/dict/")
   "Dir to store data for auto-complete-mode.")
 
+(setq debug-on-error t)
+
+(defvar jt-debug nil
+  "Print debug messages for jt methods")
+
+(defun jt-message (&rest args)
+  (if jt-debug
+      (apply 'message args)))
+
 ;; Install packages
 (load-file (concat library-dir "jt-package.el"))
 
 ;; Configurations
 (load (concat library-dir "jt-emacs.el"))
-
-
-;; TODO tramp-mode: python-mode flymake or something is busted, projectile is busted
-;; TODO fix last cmd on ipython...
-;; TODO fix all ipython weirdness; 
-;; foobar
-
-;; TODO ipython need to implement group forward / back

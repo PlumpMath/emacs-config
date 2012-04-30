@@ -11,24 +11,28 @@
 (if macosx-p
     (push "/usr/local/bin" exec-path))
 
-(setq debug-on-error t)
+;; Find one of files and run callback
+(defun find-files-and-run-fn (filenames &optional fn)
+  (let ((cur-dir (expand-file-name "."))
+        (home-dir (expand-file-name "~"))
+        (root-dir (expand-file-name "/"))
+        (found-file nil)
+        (func (if fn
+                  fn
+                '(lambda (dir fname) (jt-message "%s %s" dir fname)))
+              ))
+    (while (not (or (not (notany (lambda (fn) (file-exists-p (concat cur-dir "/" fn))) filenames))
+                    (equal home-dir cur-dir)
+                    (equal root-dir cur-dir)))
+      (setq cur-dir (expand-file-name (concat cur-dir "/.."))))
+    (loop for filename in filenames
+          if (file-exists-p (concat cur-dir "/" filename))
+          return (funcall func (concat cur-dir "/") filename)
+          finally return (message "%s %s" "Failed to find: " filenames))))
 
 ;; Find file with given name and run a callback
 (defun find-file-and-run-fn (filename &optional fn)
-  (let ((cur-dir ".")
-        (home-dir (expand-file-name "~"))
-        (root-dir "/")
-        (func (if fn
-                  fn
-                '(lambda (fname) (message fname)))
-              ))
-    (while (not (or (file-exists-p (concat cur-dir "/" filename))
-                    (equal home-dir (expand-file-name cur-dir))
-                    (equal root-dir (expand-file-name cur-dir))))
-      (setq cur-dir (concat cur-dir "/..")))
-    (if (file-exists-p (concat cur-dir "/" filename))
-        (funcall func (expand-file-name (concat cur-dir "/" filename)))
-      (message (concat "Failed to find: " filename)))))
+  (find-files-and-run-fn '(filename) fn))
 
 (defun switch-to-window-by-name (name)
   (select-window (get-buffer-window name)))
@@ -85,8 +89,9 @@
 (load-file (concat config-dir "35-jt-pylookup.el"))
 (load-file (concat config-dir "34-jt-pretty-lambda.el"))
 (load-file (concat config-dir "36-jt-undo-tree.el"))
-(load-file (concat config-dir "37-jt-dvc.el"))
 (load-file (concat config-dir "38-jt-multiterm.el"))
 (load-file (concat config-dir "39-jt-sysadmin.el"))
 (load-file (concat config-dir "40-jt-bookmark.el"))
 (load-file (concat config-dir "41-jt-winner.el"))
+(load-file (concat config-dir "42-jt-comint.el"))
+(load-file (concat config-dir "43-jt-vc.el"))

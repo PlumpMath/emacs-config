@@ -147,7 +147,20 @@ With optional argument LINE-NUMBER, check that line instead."
 (setq ropemacs-enable-shortcuts nil)
 (pymacs-load "ropemacs" "rope-")
 
-(defun ropemacs-complete ()
+(defun ropemacs-complete-or-indent ()
+  "if we are in whitespace to the left, move to first non-whitespace. else call completion if we have text to the left and whitespace under point."
+  (interactive)
+  (let ((py-indent (py-compute-indentation))
+        (col (current-column)))
+    (jt-message "%d %d" py-indent col)
+    (if (< col py-indent)
+        (forward-char (- py-indent col))
+      (if (and (looking-at "[ \t\n]")
+               (looking-back "[^ \t\n]"))
+          (ropemacs-complete-intern)
+        (jt-message "%s" "COMPLETION: not on whitespace")))))
+
+(defun ropemacs-complete-intern ()
   (interactive)
   (let* ((beg (save-excursion (skip-chars-backward "a-z0-9A-Z_./\-" (point-at-bol))
                               (point)))
@@ -183,6 +196,7 @@ With optional argument LINE-NUMBER, check that line instead."
   (setq ropemacs-autoimport-modules '("os" "shutil" "sys" "logging"))
   (define-key python-mode-map (kbd "C-<tab>") 'ropemacs-complete)
   (define-key python-mode-map (kbd "C-x g") 'rope-goto-definition)
+  (define-key python-mode-map (kbd "C-c o") 'rope-find-occurrences)
 )
 
 
@@ -192,10 +206,20 @@ With optional argument LINE-NUMBER, check that line instead."
     ;; Adding hook to automatically open a rope project if there is
     ;; one in the current or in the upper level directory
     ;; (find-file-and-run-fn ".ropeproject"
-    ;;                       (lambda (name)
-    ;;                         (rope-open-project name)))
+    ;;                       (lambda (dir name)
+    ;;                         (rope-open-project (concat dir name))))
     (setup-ropemacs)
-    (flymake-python)))
+    (flymake-python)
+
+    ;; change hook to use special complete function
+    (setq tab-always-indent `complete)
+
+    (remove-hook 'completion-at-point-functions
+                 py-complete-function 'local)
+    (setq py-complete-function 'ropemacs-complete-or-indent)
+    (add-hook 'completion-at-point-functions
+              py-complete-function 'local)))
+
 (add-hook 'python-mode-hook 'setup-python-mode)
 
 (defun python-mode-keybindings ()
@@ -205,10 +229,11 @@ With optional argument LINE-NUMBER, check that line instead."
   (define-key python-mode-map (kbd "M-a") 'python-nav-sentence-start)
   (define-key python-mode-map (kbd "M-e") 'python-nav-sentence-end)
   (define-key python-mode-map (kbd "<backtab>") 'ipython-complete)
-  (define-key python-mode-map (kbd "C-c g") 'google-suggest)
+  (define-key python-mode-map (kbd "C-c g") 'google-suggest) ; this is taken by python-mode
   (define-key python-mode-map (kbd "C-c C-a") 'ack-at-point-and-switch) ; this is taken by mark-line
   (define-key python-mode-map (kbd "M-n") 'flymake-goto-next-error)
-  (define-key python-mode-map (kbd "M-p") 'flymake-goto-prev-error))
+  (define-key python-mode-map (kbd "M-p") 'flymake-goto-prev-error)
+  )
 
 (defun py-shell-keys-and-fix ()
   (autopair-mode -1)

@@ -2,8 +2,22 @@
 (require 'helm-config)
 (require 'helm-net) ; google
 (require 'helm-regexp)
+(require 'helm-misc) ; helm narrowing by default
 
-(global-set-key (kbd "C-x h") 'helm-mini)
+(defun helm-custom ()
+  "`helm' with buffers, recentf, files in folder, recent files, bookmarks."
+  (interactive)
+  (helm :sources '(helm-c-source-buffers-list
+                   helm-c-source-bookmarks
+                   helm-c-source-files-in-current-dir
+                   helm-c-source-file-name-history
+                   helm-c-source-recentf
+                   helm-c-source-buffer-not-found)
+        :buffer "*helm custom*"
+        :input (entity-at-point)))
+
+(global-set-key (kbd "C-x C-h") 'helm-custom)
+(global-set-key (kbd "C-x h") 'helm-resume)
 
 (defalias 'regexp 'helm-regexp)
 (defalias 'mark-ring 'helm-mark-ring)
@@ -14,6 +28,7 @@
 (defalias 'colors 'helm-colors)
 (defalias 'calculator 'helm-calculator)
 
+;; Hack for helm screens shorter than mode line width
 (defun helm-display-mode-line (source)
   "Setup mode-line and header-line for `helm-buffer'."
   (set (make-local-variable 'helm-mode-line-string)
@@ -37,7 +52,8 @@
   ;; Setup header-line.
   (let* ((hlstr (helm-interpret-value
                   (assoc-default 'header-line source) source))
-         (hlstr (substring hlstr 0 (min (length hlstr) (window-width))))
+         (hlstr (if hlstr (substring hlstr 0 (min (length hlstr) (window-width))) hlstr))
          (hlend (make-string (- (window-width) (length hlstr)) ? )))
     (setq header-line-format
           (propertize (concat " " hlstr hlend) 'face 'helm-header))))
+

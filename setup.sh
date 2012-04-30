@@ -72,22 +72,6 @@ else
     bzr merge --pull
     cd ..
 fi
-if [ ! -d dvc ]; then
-    echo "Pulling dvc"
-    bzr branch http://bzr.xsteve.at/dvc/
-else
-    echo "Updating dvc"
-    cd dvc
-    bzr merge --pull
-    cd ..
-fi
-cd dvc
-mkdir -p build
-autoconf
-cd build
-../configure
-make
-cd ../..
 if [ ! -d helm ]; then
     echo "Pulling helm"
     git clone git://github.com/emacs-helm/helm.git

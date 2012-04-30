@@ -1,0 +1,5 @@
+(require 'comint)
+(define-key comint-mode-map (kbd "M-n") 'comint-next-input)
+(define-key comint-mode-map (kbd "M-p") 'comint-previous-input)
+(define-key comint-mode-map [down] 'comint-next-matching-input-from-input)
+(define-key comint-mode-map [up] 'comint-previous-matching-input-from-input)
