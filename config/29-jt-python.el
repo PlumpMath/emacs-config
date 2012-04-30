@@ -196,6 +196,7 @@ With optional argument LINE-NUMBER, check that line instead."
   (setq ropemacs-autoimport-modules '("os" "shutil" "sys" "logging"))
   (define-key python-mode-map (kbd "C-<tab>") 'ropemacs-complete)
   (define-key python-mode-map (kbd "C-x g") 'rope-goto-definition)
+  (define-key python-mode-map (kbd "C-c o") 'rope-find-occurrences)
 )
 
 
