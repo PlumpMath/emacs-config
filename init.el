@@ -48,6 +48,8 @@
 (defvar auto-complete-dir (concat user-dir ".emacs.d/elpa/auto-complete-1.4/dict/")
   "Dir to store data for auto-complete-mode.")
 
+(setq debug-on-error t)
+
 (defvar jt-debug nil
   "Print debug messages for jt methods")
 
@@ -60,4 +62,3 @@
 
 ;; Configurations
 (load (concat library-dir "jt-emacs.el"))
-

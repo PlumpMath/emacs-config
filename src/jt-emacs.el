@@ -11,26 +11,24 @@
 (if macosx-p
     (push "/usr/local/bin" exec-path))
 
-(setq debug-on-error t)
-
 ;; Find one of files and run callback
 (defun find-files-and-run-fn (filenames &optional fn)
   (let ((cur-dir (expand-file-name "."))
         (home-dir (expand-file-name "~"))
-        (root-dir "/")
+        (root-dir (expand-file-name "/"))
         (found-file nil)
         (func (if fn
                   fn
-                '(lambda (fname) (jt-message fname)))
+                '(lambda (dir fname) (jt-message "%s %s" dir fname)))
               ))
-    (while (or (notany (lambda (fn) (file-exists-p (concat cur-dir "/" fn))) filenames)
-               (equal home-dir cur-dir)
-               (equal root-dir cur-dir))
-      (setq cur-dir (concat cur-dir "/..")))
+    (while (not (or (not (notany (lambda (fn) (file-exists-p (concat cur-dir "/" fn))) filenames))
+                    (equal home-dir cur-dir)
+                    (equal root-dir cur-dir)))
+      (setq cur-dir (expand-file-name (concat cur-dir "/.."))))
     (loop for filename in filenames
-      if (file-exists-p (concat cur-dir "/" filename))
-      return (funcall func (concat cur-dir "/") filename)
-      finally return (jt-message (concat "Failed to find: " filename)))))
+          if (file-exists-p (concat cur-dir "/" filename))
+          return (funcall func (concat cur-dir "/") filename)
+          finally return (message "%s %s" "Failed to find: " filenames))))
 
 ;; Find file with given name and run a callback
 (defun find-file-and-run-fn (filename &optional fn)
