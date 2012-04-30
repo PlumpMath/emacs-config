@@ -13,22 +13,28 @@
 
 (setq debug-on-error t)
 
-;; Find file with given name and run a callback
-(defun find-file-and-run-fn (filename &optional fn)
-  (let ((cur-dir ".")
+;; Find one of files and run callback
+(defun find-files-and-run-fn (filenames &optional fn)
+  (let ((cur-dir (expand-file-name "."))
         (home-dir (expand-file-name "~"))
         (root-dir "/")
+        (found-file nil)
         (func (if fn
                   fn
-                '(lambda (fname) (message fname)))
+                '(lambda (fname) (jt-message fname)))
               ))
-    (while (not (or (file-exists-p (concat cur-dir "/" filename))
-                    (equal home-dir (expand-file-name cur-dir))
-                    (equal root-dir (expand-file-name cur-dir))))
+    (while (or (notany (lambda (fn) (file-exists-p (concat cur-dir "/" fn))) filenames)
+               (equal home-dir cur-dir)
+               (equal root-dir cur-dir))
       (setq cur-dir (concat cur-dir "/..")))
-    (if (file-exists-p (concat cur-dir "/" filename))
-        (funcall func (expand-file-name (concat cur-dir "/" filename)))
-      (message (concat "Failed to find: " filename)))))
+    (loop for filename in filenames
+      if (file-exists-p (concat cur-dir "/" filename))
+      return (funcall func (concat cur-dir "/") filename)
+      finally return (jt-message (concat "Failed to find: " filename)))))
+
+;; Find file with given name and run a callback
+(defun find-file-and-run-fn (filename &optional fn)
+  (find-files-and-run-fn '(filename) fn))
 
 (defun switch-to-window-by-name (name)
   (select-window (get-buffer-window name)))
@@ -90,3 +96,4 @@
 (load-file (concat config-dir "40-jt-bookmark.el"))
 (load-file (concat config-dir "41-jt-winner.el"))
 (load-file (concat config-dir "42-jt-comint.el"))
+(load-file (concat config-dir "43-jt-vc.el"))

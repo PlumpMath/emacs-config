@@ -61,10 +61,3 @@
 ;; Configurations
 (load (concat library-dir "jt-emacs.el"))
 
-
-;; TODO tramp-mode: python-mode flymake or something is busted, projectile is busted
-;; TODO fix last cmd on ipython...
-;; TODO fix all ipython weirdness; 
-;; foobar
-
-;; TODO ipython need to implement group forward / back

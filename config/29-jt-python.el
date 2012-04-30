@@ -206,8 +206,8 @@ With optional argument LINE-NUMBER, check that line instead."
     ;; Adding hook to automatically open a rope project if there is
     ;; one in the current or in the upper level directory
     ;; (find-file-and-run-fn ".ropeproject"
-    ;;                       (lambda (name)
-    ;;                         (rope-open-project name)))
+    ;;                       (lambda (dir name)
+    ;;                         (rope-open-project (concat dir name))))
     (setup-ropemacs)
     (flymake-python)
 
