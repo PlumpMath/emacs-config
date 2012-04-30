@@ -85,7 +85,6 @@
 (load-file (concat config-dir "35-jt-pylookup.el"))
 (load-file (concat config-dir "34-jt-pretty-lambda.el"))
 (load-file (concat config-dir "36-jt-undo-tree.el"))
-(load-file (concat config-dir "37-jt-dvc.el"))
 (load-file (concat config-dir "38-jt-multiterm.el"))
 (load-file (concat config-dir "39-jt-sysadmin.el"))
 (load-file (concat config-dir "40-jt-bookmark.el"))
