@@ -147,7 +147,20 @@ With optional argument LINE-NUMBER, check that line instead."
 (setq ropemacs-enable-shortcuts nil)
 (pymacs-load "ropemacs" "rope-")
 
-(defun ropemacs-complete ()
+(defun ropemacs-complete-or-indent ()
+  "if we are in whitespace to the left, move to first non-whitespace. else call completion if we have text to the left and whitespace under point."
+  (interactive)
+  (let ((py-indent (py-compute-indentation))
+        (col (current-column)))
+    (jt-message "%d %d" py-indent col)
+    (if (< col py-indent)
+        (forward-char (- py-indent col))
+      (if (and (looking-at "[ \t\n]")
+               (looking-back "[^ \t\n]"))
+          (ropemacs-complete-intern)
+        (jt-message "%s" "COMPLETION: not on whitespace")))))
+
+(defun ropemacs-complete-intern ()
   (interactive)
   (let* ((beg (save-excursion (skip-chars-backward "a-z0-9A-Z_./\-" (point-at-bol))
                               (point)))
@@ -202,7 +215,7 @@ With optional argument LINE-NUMBER, check that line instead."
 
     (remove-hook 'completion-at-point-functions
                  py-complete-function 'local)
-    (setq py-complete-function 'ropemacs-complete)
+    (setq py-complete-function 'ropemacs-complete-or-indent)
     (add-hook 'completion-at-point-functions
               py-complete-function 'local)))
 
