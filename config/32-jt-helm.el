@@ -7,13 +7,14 @@
 (defun helm-custom ()
   "`helm' with buffers, recentf, files in folder, recent files, bookmarks."
   (interactive)
-  (helm-other-buffer '(helm-c-source-buffers-list
-                       helm-c-source-bookmarks
-                       helm-c-source-files-in-current-dir
-                       helm-c-source-file-name-history
-                       helm-c-source-recentf
-                       helm-c-source-buffer-not-found)
-                     "*helm custom*"))
+  (helm :sources '(helm-c-source-buffers-list
+                   helm-c-source-bookmarks
+                   helm-c-source-files-in-current-dir
+                   helm-c-source-file-name-history
+                   helm-c-source-recentf
+                   helm-c-source-buffer-not-found)
+        :buffer "*helm custom*"
+        :input (entity-at-point)))
 
 (global-set-key (kbd "C-x C-h") 'helm-custom)
 (global-set-key (kbd "C-x h") 'helm-resume)

@@ -229,10 +229,11 @@ With optional argument LINE-NUMBER, check that line instead."
   (define-key python-mode-map (kbd "M-a") 'python-nav-sentence-start)
   (define-key python-mode-map (kbd "M-e") 'python-nav-sentence-end)
   (define-key python-mode-map (kbd "<backtab>") 'ipython-complete)
-  (define-key python-mode-map (kbd "C-c g") 'google-suggest)
+  (define-key python-mode-map (kbd "C-c g") 'google-suggest) ; this is taken by python-mode
   (define-key python-mode-map (kbd "C-c C-a") 'ack-at-point-and-switch) ; this is taken by mark-line
   (define-key python-mode-map (kbd "M-n") 'flymake-goto-next-error)
-  (define-key python-mode-map (kbd "M-p") 'flymake-goto-prev-error))
+  (define-key python-mode-map (kbd "M-p") 'flymake-goto-prev-error)
+  )
 
 (defun py-shell-keys-and-fix ()
   (autopair-mode -1)
