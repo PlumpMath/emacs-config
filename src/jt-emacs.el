@@ -89,3 +89,4 @@
 (load-file (concat config-dir "39-jt-sysadmin.el"))
 (load-file (concat config-dir "40-jt-bookmark.el"))
 (load-file (concat config-dir "41-jt-winner.el"))
+(load-file (concat config-dir "42-jt-comint.el"))
