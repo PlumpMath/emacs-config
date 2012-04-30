@@ -141,6 +141,18 @@ echo "Building ipython"
 cd ipython
 sudo python setup.py install
 cd ..
+if [ ! -d rainbow-delimiters ]; then
+    echo "Pulling rainbow-delimiters"
+    git clone git://github.com/jlr/rainbow-delimiters.git
+else
+    echo "Updating rainbow-delimiters"
+    cd rainbow-delimiters
+    git pull -u
+    cd ..
+fi
+cd rainbow-delimiters
+emacs -Q -batch -L . -f batch-byte-compile rainbow-delimiters.el
+cd ..
 popd
 
 if [[ $platform == 'linux' ]]; then

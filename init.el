@@ -25,7 +25,6 @@
                               expand-region
                               ack-and-a-half
                               rainbow-mode
-                              rainbow-delimiters
                               flymake
                               flymake-cursor
                               auto-complete
