@@ -72,7 +72,7 @@ original" (interactive)
 ;; duplicate a line
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
 ;; duplicate a line and comment the first
-(global-set-key (kbd "C-c c")(lambda()(interactive)(duplicate-line-and-comment t)))
+(global-set-key (kbd "C-c c") (lambda () (interactive) (duplicate-line-and-comment t)))
 (global-set-key (kbd "C-c l") 'mark-line)
 (global-set-key [(control shift up)] 'move-line-up)
 (global-set-key [(control shift down)]  'move-line-down)
