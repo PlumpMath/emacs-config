@@ -22,7 +22,7 @@ if [[ $platform == 'linux' ]]; then
     # sudo apt-get update
     sudo apt-get install emacs-snapshot ack-grep git mercurial ipython pyflakes python-setuptools bzr exuberant-ctags python-dev libncurses5-dev autoconf texinfo
 elif [[ $platform == 'mac' ]]; then
-    echo "Make sure emacs24, ack, git, mercurial, bzr, ipython, pyflakes, pip, exuberant ctags are installed"
+    echo "Make sure emacs24, ack, git, mercurial, bzr, ipython, pyflakes, pip, exuberant ctags, python-dev, libncurses, autoconf, texinfo are installed"
     echo "(Try http://emacsformacosx.com/builds)"
     echo "Make sure you've replaced /usr/bin/emacs "
     if `diff /usr/bin/emacs ./thirdparty/mac-emacs-script >/dev/null` ; then
@@ -174,7 +174,7 @@ else
     echo "Init files are already linked"
 fi
 
-echo "maybe add to bashrc: alias E=\"SUDO_EDITOR=\\\"emacsclient -c -a emacs\\\" sudoedit\""
+echo "maybe add to bashrc: alias E=\"SUDO_EDITOR=\\\"emacsclient -c -a emacs\\\" sudo -e\""
 
 # find . -name *.tar.gz | xargs -n1 tar xvzf
 # find . -name *.tar.bz2 | xargs -n1 tar xvjpf
