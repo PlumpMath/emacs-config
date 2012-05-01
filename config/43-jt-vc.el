@@ -1,5 +1,8 @@
 (setq vc-dir-markers-alist '(".hg" ".git" ".svn"))
 
+;; hacks for ido-mode, colors in debug
+(load-file (concat library-dir "jt-vc-hg.el"))
+
 ;; take sane default
 (defun vc-dir-default ()
   (interactive)
