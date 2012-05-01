@@ -4,10 +4,10 @@
 (require 'hideshow)
 
 (defun hideshow-keybindings ()
-  (local-set-key (kbd "C-c <right>") 'hs-show-block)
-  (local-set-key (kbd "C-c <left>")  'hs-hide-block)
-  (local-set-key (kbd "C-c <up>")    'hs-hide-all)
-  (local-set-key (kbd "C-c <down>")  'hs-show-all)
+  (local-set-key (kbd "C-x <right>") 'hs-show-block)
+  (local-set-key (kbd "C-x <left>")  'hs-hide-block)
+  (local-set-key (kbd "C-x <up>")    'hs-hide-all)
+  (local-set-key (kbd "C-x <down>")  'hs-show-all)
   )
 
 (add-hook 'hs-minor-mode-hook 'hideshow-keybindings)

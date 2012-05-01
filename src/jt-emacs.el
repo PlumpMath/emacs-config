@@ -77,7 +77,6 @@
 (load-file (concat config-dir "25-jt-flymake.el"))
 (load-file (concat config-dir "26-jt-regex.el"))
 (load-file (concat config-dir "27-jt-cc-mode.el"))
-;(load-file (concat config-dir "28-jt-hideshow.el"))
 ;; helm + helm dependencies
 (load-file (concat config-dir "32-jt-helm.el"))
 (load-file (concat config-dir "24-jt-google.el"))
@@ -95,3 +94,4 @@
 (load-file (concat config-dir "41-jt-winner.el"))
 (load-file (concat config-dir "42-jt-comint.el"))
 (load-file (concat config-dir "43-jt-vc.el"))
+(load-file (concat config-dir "28-jt-hideshow.el"))
