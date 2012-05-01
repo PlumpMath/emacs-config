@@ -38,6 +38,7 @@
 
 ;; Highlight words like
 (defun highlight-todos-on ()
+  (interactive)
   (font-lock-add-keywords
    nil '(("\\<\\(TODO\\|FIXME\\|HACK\\||NOCOMMIT\\)"
           1 font-lock-warning-face t))))
@@ -45,7 +46,8 @@
                         emacs-lisp-mode-hook
                         text-mode-hook
                         c-mode-common-hook
-                        python-mode-hook)
+                        python-mode-hook
+                        )
                       'highlight-todos-on)
 
 ;; Font size

@@ -67,15 +67,18 @@
                         emacs-lisp-mode-hook
                         text-mode-hook
                         c-mode-common-hook
-                        python-mode-hook)
+                        python-mode-hook
+                        )
                       'turn-rainbow-mode-on)
 
+(add-to-list 'load-path (concat thirdparty-dir "rainbow-delimiters/"))
 (require 'rainbow-delimiters)
 (setup-multiple-hooks '(lisp-mode-hook
                         emacs-lisp-mode-hook
                         text-mode-hook
                         c-mode-common-hook
-                        python-mode-hook)
+                        python-mode-hook
+                        )
                       'rainbow-delimiters-mode)
 
 (setq frame-title-format
