@@ -19,6 +19,27 @@
 (global-set-key (kbd "C-x C-h") 'helm-custom)
 (global-set-key (kbd "C-x h") 'helm-resume)
 
+(defun helm-etags-select (arg)
+  "Preconfigured helm for etags.
+Called with one prefix arg use symbol at point as initial input.
+Called with two prefix arg reinitialize cache.
+If tag file have been modified reinitialize cache."
+  (interactive "P")
+  (let ((tag  (helm-c-etags-get-tag-file))
+        (init (entity-at-point))
+        (helm-quit-if-no-candidate t)
+        (helm-execute-action-at-once-if-one t))
+    (when (and helm-c-etags-mtime-alist
+               (helm-c-etags-file-modified-p tag))
+      (remhash tag helm-c-etags-cache))
+    (if (and tag (file-exists-p tag))
+        (helm :sources 'helm-c-source-etags-select
+              :keymap helm-c-etags-map
+              :input init
+              :buffer "*helm etags*")
+        (message "Error: No tag file found, please create one with etags shell command."))))
+(global-set-key (kbd "M-,") 'helm-etags-select)
+
 (defalias 'regexp 'helm-regexp)
 (defalias 'mark-ring 'helm-mark-ring)
 (defalias 'kill-ring 'helm-kill-ring)
