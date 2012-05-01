@@ -14,3 +14,4 @@
 ;; comment-dwim comments regions, makes a new comment, uncomments commented
 ;; regions depending on context.
 (global-set-key (kbd "C-c k") 'comment-dwim)
+(global-set-key (kbd "C-c u") 'comment-dwim)
