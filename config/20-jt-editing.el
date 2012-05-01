@@ -59,6 +59,8 @@ original" (interactive)
 (require 'autopair)
 (autopair-global-mode)
 
+;; iedit C-;
+(require 'iedit)
 
 ;; from http://pedrokroger.net/2010/07/configuring-emacs-as-a-python-ide-2/
 (add-hook 'python-mode-hook
