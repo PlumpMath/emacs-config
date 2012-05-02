@@ -2,11 +2,14 @@
 ;; set a directory for backup files instead of dumping them all over the system
 ; (setq make-backup-files t) ; the default
 ;; (setq version-control t)
+;(setq make-backup-files nil)
+;(setq version-control nil)
+(setq delete-old-versions t)
 (push (cons "." emacs-backups-dir)
       backup-directory-alist)
 
 (setq recentf-save-file (concat emacs-backups-dir "recentf")
-      recentf-max-saved-items 200
+      recentf-max-saved-items 1000
       recentf-max-menu-items 15)
 (recentf-mode t)
 
