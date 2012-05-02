@@ -153,6 +153,18 @@ fi
 cd rainbow-delimiters
 emacs -Q -batch -L . -f batch-byte-compile rainbow-delimiters.el
 cd ..
+if [ ! -d popwin-el ]; then
+    echo "Pulling popwin-el"
+    git clone git://github.com/m2ym/popwin-el.git
+else
+    echo "Updating popwin-el"
+    cd popwin-el
+    git pull -u
+    cd ..
+fi
+cd popwin-el
+emacs -Q -batch -L . -f batch-byte-compile popwin.el
+cd ..
 popd
 
 if [[ $platform == 'linux' ]]; then
