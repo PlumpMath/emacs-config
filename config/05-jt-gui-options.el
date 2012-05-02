@@ -2,6 +2,9 @@
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode tooltip-mode))
   (when (fboundp mode) (funcall mode -1)))
 (setq inhibit-startup-screen t)
+(setq help-at-pt-display-when-idle '(kbd-help))
+(setq help-at-pt-timer-delay 0.1)
+(help-at-pt-set-timer)
 
 ;; Disambiguate buffers with the same name by adding the parent director(ies)
 (require 'uniquify)
@@ -71,6 +74,7 @@
                         )
                       'turn-rainbow-mode-on)
 
+;; match paren colors
 (add-to-list 'load-path (concat thirdparty-dir "rainbow-delimiters/"))
 (require 'rainbow-delimiters)
 (setup-multiple-hooks '(lisp-mode-hook
