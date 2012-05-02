@@ -20,9 +20,9 @@ if [[ $platform == 'linux' ]]; then
     # until emacs 24: https://launchpad.net/~cassou/+archive/emacs
     # sudo add-apt-repository ppa:cassou/emacs
     # sudo apt-get update
-    sudo apt-get install emacs-snapshot ack-grep git mercurial ipython pyflakes python-setuptools bzr exuberant-ctags python-dev libncurses5-dev autoconf texinfo
+    sudo apt-get install emacs-snapshot ack-grep git mercurial ipython pyflakes python-setuptools bzr exuberant-ctags
 elif [[ $platform == 'mac' ]]; then
-    echo "Make sure emacs24, ack, git, mercurial, bzr, ipython, pyflakes, pip, exuberant ctags, python-dev, libncurses, autoconf, texinfo are installed"
+    echo "Make sure emacs24, ack, git, mercurial, bzr, ipython, pyflakes, pip, exuberant ctags are installed"
     echo "(Try http://emacsformacosx.com/builds)"
     echo "Make sure you've replaced /usr/bin/emacs "
     if `diff /usr/bin/emacs ./thirdparty/mac-emacs-script >/dev/null` ; then
