@@ -171,6 +171,7 @@ else
 fi
 
 echo "maybe add to bashrc: alias E=\"SUDO_EDITOR=\\\"emacsclient -c -a emacs\\\" sudo -e\""
+echo "maybe add to .hgrc: [ui] merge = emacsclient [merge-tools] emacsclient.args = --eval \"(ediff-merge-with-ancestor \\"$local\\" \\"$other\\" \\"$base\\" nil \\"$output\\")\""
 
 # find . -name *.tar.gz | xargs -n1 tar xvzf
 # find . -name *.tar.bz2 | xargs -n1 tar xvjpf
