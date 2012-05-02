@@ -29,7 +29,6 @@
                               flymake-cursor
                               auto-complete
                               multi-term
-                              diminish
                               )
   "Packages to be installed from marmalade.")
 
@@ -62,19 +61,3 @@
 
 ;; Configurations
 (load (concat library-dir "jt-emacs.el"))
-
-;; (require 'diminish)
-;; (setq diminish-specs '((rainbow-mode . "Rb")
-;;                        (flymake-mode . "fly")
-;;                        (undo-tree-mode . "UnT")
-;;                        (projectile-mode . "Proj")
-;;                        (lambda-mode . "lmb")
-;;                        ))
-;; (dolist (mode-str-pair diminish-specs)
-;;   (eval-after-load (diminish (car mode-str-pair) (cdr mode-str-pair)))
-
-;; (setq major-mode-diminish-specs '((emacs-lisp-mode-hook . "el")
-;;                                   (python-mode-hook . "py")))
-;; (dolist (mode-name-pair major-mode-diminish-specs)
-;;   (add-hook (car mode-name-pair) (lambda () (setq mode-name (cdr mode-name-pair))))
-;;   )
