@@ -20,7 +20,7 @@ if [[ $platform == 'linux' ]]; then
     # until emacs 24: https://launchpad.net/~cassou/+archive/emacs
     # sudo add-apt-repository ppa:cassou/emacs
     # sudo apt-get update
-    sudo apt-get install emacs-snapshot ack-grep git mercurial ipython pyflakes python-setuptools bzr exuberant-ctags python-dev libncurses5-dev autoconf texinfo
+    sudo apt-get install emacs-snapshot ack-grep git-core subversion mercurial ipython pyflakes python-setuptools bzr exuberant-ctags python-dev libncurses5-dev autoconf texinfo
 elif [[ $platform == 'mac' ]]; then
     echo "Make sure emacs24, ack, git, mercurial, bzr, ipython, pyflakes, pip, exuberant ctags, python-dev, libncurses, autoconf, texinfo are installed"
     echo "(Try http://emacsformacosx.com/builds)"
@@ -61,7 +61,9 @@ else
     cd ..
 fi
 cd pylookup
-make
+if [ ! -e pylookup.db ]; then
+    make
+fi
 cd ..
 if [ ! -d python-mode ]; then
     echo "Pulling python-mode"
