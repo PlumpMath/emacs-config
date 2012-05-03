@@ -1,5 +1,4 @@
 (add-to-list 'load-path (concat thirdparty-dir "python-mode/"))
-(add-to-list 'load-path (concat thirdparty-dir "ipython/docs/emacs/"))
 (require 'ipython)
 (setq-default py-python-command-args '("--colors=Linux"))
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
