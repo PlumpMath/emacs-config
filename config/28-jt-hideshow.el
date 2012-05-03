@@ -16,7 +16,7 @@
   (hs-minor-mode)
   (hideshow-keybindings)
   )
-(add-hook 'python-mode-hook 'turn-on-hideshow)
+; (add-hook 'python-mode-hook 'turn-on-hideshow)
 
 ;; Hide the comments too when you do a 'hs-hide-all'
 (setq hs-hide-comments nil)
