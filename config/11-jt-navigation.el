@@ -45,8 +45,25 @@
 ;; Easy query replace
 (defalias 'qrr 'query-replace-regexp)
 
+;; fuzzy matching
+(require 'fuzzy)
 ;; Regex search by default
-(global-set-key (kbd "C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "C-r") 'isearch-backward-regexp)
-(global-set-key (kbd "C-M-s") 'isearch-forward)
-(global-set-key (kbd "C-M-r") 'isearch-backward)
+(defun fuzzy-isearch ()
+  (cond (isearch-word
+         (if isearch-forward 'word-search-forward 'word-search-backward))
+        (isearch-regexp
+         (if isearch-forward 're-search-forward 're-search-backward))
+        ((or fuzzy-isearch
+             (eq fuzzy-isearch-enabled 'always)
+             (and (eq fuzzy-isearch-enabled 'on-failed)
+                  (null isearch-success)
+                  isearch-wrapped
+                  (> (setq fuzzy-isearch-failed-count (1+ fuzzy-isearch-failed-count))
+                     1)))
+         (unless fuzzy-isearch
+           ;(goto-char isearch-opoint)
+           (fuzzy-isearch-activate))
+         (if isearch-forward 'fuzzy-search-forward 'fuzzy-search-backward))
+        (t
+         (if isearch-forward 're-search-forward 're-search-backward))))
+(turn-on-fuzzy-isearch)
