@@ -175,9 +175,14 @@ elif [[ $platform == 'mac' ]]; then
     STAT_CMD="stat -L -f '%d:%i' "
 fi
 
-if ! [ "$($STAT_CMD "init.el")" = "$($STAT_CMD "$HOME/.emacs.d/init.el")" ]; then
-    echo "Backing up init.el to init.el.backup"
-    mv ~/.emacs.d/init.el ~/.emacs.d/init.el.backup
+if [ -e $HOME/.emacs.d/init.el ]; then
+    if ! [ "$($STAT_CMD "init.el")" = "$($STAT_CMD "$HOME/.emacs.d/init.el")" ]; then
+        echo "Backing up init.el to init.el.backup"
+        mv ~/.emacs.d/init.el ~/.emacs.d/init.el.backup
+    fi
+fi
+
+if ! [ -e $HOME/.emacs.d/init.el ]; then
     echo "Linking init.el"
     ln -s `pwd`/init.el ~/.emacs.d/init.el
 else
