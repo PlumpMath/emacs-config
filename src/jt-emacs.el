@@ -95,3 +95,4 @@
 (load-file (concat config-dir "43-jt-vc.el"))
 (load-file (concat config-dir "28-jt-hideshow.el"))
 (load-file (concat config-dir "44-jt-popwin.el"))
+(load-file (concat config-dir "45-jt-iterm2.el"))
