@@ -1,12 +1,38 @@
 ;; Backups
-;; set a directory for backup files instead of dumping them all over the system
-; (setq make-backup-files t) ; the default
-;; (setq version-control t)
-;(setq make-backup-files nil)
-;(setq version-control nil)
+; make backups
+(setq make-backup-files t)
+
+; never make versioned backups
+(setq version-control 'never)
+
+; preserve hard links
+(setq backup-by-copying-when-linked t)
+
 (setq delete-old-versions t)
-(push (cons "." emacs-backups-dir)
-      backup-directory-alist)
+
+; Create the backup file directory if it doesn't exist
+(if (not (file-directory-p emacs-backups-dir))
+    (make-directory emacs-backups-dir))
+
+; save all backups in emacs-backups-dir
+(setq-default
+ backup-directory-alist (list (cons "." emacs-backups-dir)))
+
+; auto-save file-visiting buffers by default
+(setq auto-save-default t)
+
+; do not auto-save buffer in the file it is visting
+(setq auto-save-visited-file-name nil)
+
+(defun tramp-backup-disable-p (name)
+  (if (string-match tramp-file-name-regexp
+                    name)
+      nil
+    (normal-backup-enable-predicate name)))
+
+(setq backup-enable-predicate 'tramp-backup-disable-p)
+
+
 
 (setq recentf-save-file (concat emacs-backups-dir "recentf")
       recentf-max-saved-items 1000
