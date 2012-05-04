@@ -73,3 +73,5 @@
 
 ;; (auto-compression-mode 1)
 ;; auto-insert-mode for copyright?
+;; TODO (setq vc-cvs-stay-local nil)
+;; TODO (global-auto-revert-mode t)
