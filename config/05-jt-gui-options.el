@@ -26,7 +26,7 @@
 (line-number-mode 1)
 
 ;; Line numbering
-(setq linum-format "%d ")
+(setq linum-format "%3d ")
 (defun turn-linum-on ()
   (linum-mode))
 (add-hook 'python-mode-hook 'turn-linum-on)
