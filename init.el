@@ -61,3 +61,15 @@
 
 ;; Configurations
 (load (concat library-dir "jt-emacs.el"))
+
+;; ; enable xterm-mouse-mode if running emacs in a terminal
+;; (xterm-mouse-mode (if (not (display-graphic-p)) 1 0))
+
+;; ; enable mouse wheel scrolling
+;; (require 'mwheel)
+;; (mwheel-install)
+
+;; (setq focus-follows-mouse nil)
+
+;; (auto-compression-mode 1)
+;; auto-insert-mode for copyright?
