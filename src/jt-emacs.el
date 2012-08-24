@@ -83,8 +83,6 @@
 ;; too expensive
 (load-file (concat config-dir "31-jt-auto-complete.el"))
 (load-file (concat config-dir "33-jt-projectile.el"))
-(load-file (concat config-dir "29-jt-python.el"))
-(load-file (concat config-dir "35-jt-pylookup.el"))
 (load-file (concat config-dir "34-jt-pretty-lambda.el"))
 (load-file (concat config-dir "36-jt-undo-tree.el"))
 (load-file (concat config-dir "38-jt-multiterm.el"))
@@ -96,3 +94,5 @@
 (load-file (concat config-dir "28-jt-hideshow.el"))
 (load-file (concat config-dir "44-jt-popwin.el"))
 (load-file (concat config-dir "45-jt-iterm2.el"))
+(load-file (concat config-dir "29-jt-python.el"))
+(load-file (concat config-dir "35-jt-pylookup.el"))
