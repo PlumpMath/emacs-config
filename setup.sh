@@ -17,14 +17,13 @@ fi
 
 echo "Installing dependencies"
 if [[ $platform == 'linux' ]]; then
-    # until emacs 24: https://launchpad.net/~cassou/+archive/emacs
     # sudo add-apt-repository ppa:cassou/emacs
     # sudo apt-get update
-    sudo apt-get install emacs-snapshot ack-grep git-core subversion mercurial ipython pyflakes python-setuptools bzr exuberant-ctags
+    # sudo apt-get install emacs-snapshot-el emacs-snapshot-gtk emacs-snapshot
+    sudo apt-get install ack-grep git-core subversion mercurial ipython pyflakes python-setuptools bzr exuberant-ctags
 elif [[ $platform == 'mac' ]]; then
-    echo "Make sure emacs24, ack, git, mercurial, bzr, ipython, pyflakes, pip, exuberant ctags are installed"
+    echo "Make sure emacs24 is installed"
     echo "(Try http://emacsformacosx.com/builds)"
-    echo "Make sure you've replaced /usr/bin/emacs "
     if `diff /usr/bin/emacs ./thirdparty/mac-emacs-script >/dev/null` ; then
         echo "/usr/bin/emacs fix is done"
     else
@@ -32,8 +31,10 @@ elif [[ $platform == 'mac' ]]; then
         sudo mv /usr/bin/emacs /usr/bin/emacs.backup
         sudo cp ./thirdparty/mac-emacs-script /usr/bin/emacs
     fi
+    # always succeeds
+    brew install ack git mercurial bzr ctags wget || true
 fi
-sudo pip install rope ropemode ipdb reimport readline
+pip install rope ropemode ipdb reimport
 
 echo "Fixing permissions..."
 chmod u=rwx,g=r,o=r setup.sh config src 
@@ -71,7 +72,7 @@ if [ ! -d python-mode ]; then
 else
     echo "Updating python-mode"
     cd python-mode
-    bzr merge --pull
+    # bzr merge --pull
     cd ..
 fi
 if [ ! -d helm ]; then

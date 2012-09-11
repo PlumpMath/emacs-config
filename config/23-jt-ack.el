@@ -17,7 +17,7 @@
                                               nil
                                               'ack-and-a-half-regexp-history
                                               )))
-  (switch-to-window-by-name "*ack-and-a-half*"))
+  (switch-to-window-by-name "*Ack-and-a-half*"))
 
 (global-set-key (kbd "C-c C-a") 'ack-at-point-and-switch)
 
