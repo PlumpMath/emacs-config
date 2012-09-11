@@ -18,6 +18,8 @@
 (define-key input-decode-map "[1;9A" [M-up])
 (define-key input-decode-map "[1;9B" [M-down])
 
+(define-key input-decode-map "[1;999A" [C-return])
+
 (define-key input-decode-map "[1;10D" [M-S-left])
 (define-key input-decode-map "[1;10C" [M-S-right])
 (define-key input-decode-map "[1;10A" [M-S-up])
