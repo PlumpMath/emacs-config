@@ -26,3 +26,5 @@
 
 (global-set-key "[1;99(" 'goto-match-paren) ; C-(
 (global-set-key "[1;99)" 'goto-match-paren)
+(global-set-key (kbd "ESC M-[ D") 'backward-word)
+(global-set-key (kbd "ESC M-[ C") 'forward-word)
