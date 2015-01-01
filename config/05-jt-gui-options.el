@@ -33,7 +33,7 @@
 
 
 (setq background-color (face-attribute 'default :background))
-(set-face-background 'linum background-color)
+;(set-face-background 'linum background-color)
 
 ;; Fringe color
 (set-fringe-style '(0 . 4))

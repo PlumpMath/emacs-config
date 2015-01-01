@@ -24,22 +24,22 @@ if [[ $platform == 'linux' ]]; then
 elif [[ $platform == 'mac' ]]; then
     echo "Make sure emacs24 is installed"
     echo "(Try http://emacsformacosx.com/builds)"
-    if `diff /usr/bin/emacs ./thirdparty/mac-emacs-script >/dev/null` ; then
-        echo "/usr/bin/emacs fix is done"
-    else
-        echo "fixing /usr/bin/emacs"
-        sudo mv /usr/bin/emacs /usr/bin/emacs.backup
-        sudo cp ./thirdparty/mac-emacs-script /usr/bin/emacs
-    fi
+    #if `diff /usr/bin/emacs ./thirdparty/mac-emacs-script >/dev/null` ; then
+    #    echo "/usr/bin/emacs fix is done"
+    #else
+    #    echo "fixing /usr/bin/emacs"
+    #    sudo mv /usr/bin/emacs /usr/bin/emacs.backup
+    #    sudo cp ./thirdparty/mac-emacs-script /usr/bin/emacs
+    #fi
     # always succeeds
-    brew install ack git mercurial bzr ctags wget || true
+    brew install ack bzr git mercurial ctags wget || true
 fi
-pip install rope ropemode ipdb reimport
+pip install rope ropemode ipdb
 
-echo "Fixing permissions..."
-chmod u=rwx,g=r,o=r setup.sh config src 
-chmod -R u=rw,g=r,o=r config/*
-chmod -R u=rw,g=r,o=r src/*
+#echo "Fixing permissions..."
+#chmod u=rwx,g=r,o=r setup.sh config src 
+#chmod -R u=rw,g=r,o=r config/*
+#chmod -R u=rw,g=r,o=r src/*
 
 # create temporary flymake folder
 if [ ! -d $INSTALLDIR/.emacs.d/tmp ]; then
@@ -87,15 +87,6 @@ fi
 cd helm
 make
 cd ..
-if [ ! -d projectile ]; then
-    echo "Pulling projectile"
-    git clone git://github.com/bbatsov/projectile
-else
-    echo "Updating projectile"
-    cd projectile
-    git pull -u
-    cd ..
-fi
 if [ ! -d autopair ]; then
     echo "Pulling autopair"
     svn co http://autopair.googlecode.com/svn/trunk autopair
@@ -116,11 +107,11 @@ else
 fi
 echo "Building pymacs"
 cd Pymacs
-make && sudo make install
+make && make install
 cd ..
 if [ ! -d ropemacs ]; then
     echo "Pulling ropemacs"
-    hg clone https://bitbucket.org/agr/ropemacs
+    git clone https://github.com/python-rope/ropemacs.git
 else
     echo "Updating ropemacs"
     cd ropemacs
@@ -129,21 +120,8 @@ else
 fi
 echo "Building ropemacs"
 cd ropemacs
-sudo python setup.py install
+python setup.py install
 cd ..
-# if [ ! -d ipython ]; then
-#     echo "Pulling ipython"
-#     git clone git://github.com/ipython/ipython.git
-# else
-#     echo "Updating ipython"
-#     cd ipython
-#     git pull -u
-#     cd ..
-# fi
-# echo "Building ipython"
-# cd ipython
-# sudo python setup.py install
-# cd ..
 if [ ! -d rainbow-delimiters ]; then
     echo "Pulling rainbow-delimiters"
     git clone git://github.com/jlr/rainbow-delimiters.git
@@ -192,6 +170,3 @@ fi
 
 echo "maybe add to bashrc: alias E=\"SUDO_EDITOR=\\\"emacsclient -c -a emacs\\\" sudo -e\""
 echo "maybe add to .hgrc: [ui] merge = emacsclient [merge-tools] emacsclient.args = --eval \"(ediff-merge-with-ancestor \\"$local\\" \\"$other\\" \\"$base\\" nil \\"$output\\")\""
-
-# find . -name *.tar.gz | xargs -n1 tar xvzf
-# find . -name *.tar.bz2 | xargs -n1 tar xvjpf

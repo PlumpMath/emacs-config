@@ -1,9 +1,11 @@
-(add-to-list 'load-path (concat thirdparty-dir "projectile/"))
-
 (require 'projectile)
 
 (defun regenerate-tags ()
-  "Regenerate the project's etags using ctags."
+  "Regenerate the project's etags using ctags. 
+
+   Ignores files included in the .ctags_excludes folder in the
+   root of the project (where the .git or .hg folder is located)
+  "
   (interactive)
   (let ((current-dir default-directory)
         (project-root (projectile-get-project-root))
@@ -18,7 +20,8 @@
 
 ;; find in project
 (define-key projectile-mode-map (kbd "C-x f") 'projectile-find-file)
-(defalias 'projectile-refresh 'projectile-invalidate-project-cache)
+
+(setq projectile-file-exists-remote-cache-expire (* 10 60))
 (setq projectile-enable-caching t)
 (projectile-global-mode)
 

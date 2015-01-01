@@ -29,6 +29,7 @@
                               flymake-cursor
                               auto-complete
                               multi-term
+                              projectile
                               )
   "Packages to be installed from marmalade.")
 
