@@ -1,4 +1,5 @@
 (add-to-list 'load-path (concat thirdparty-dir "python-mode/"))
+
 (require 'ipython)
 (setq-default py-python-command-args '("--colors=Linux"))
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
@@ -90,49 +91,6 @@ With optional argument LINE-NUMBER, check that line instead."
                 (forward-line 1)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; FLYMAKE FOR PYTHON
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-hook 'python-mode-hook 'flymake-find-file-hook)
-
-(defun python-flymake-create-copy-file ()
-  "Create a copy local file"
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                     'flymake-create-temp-inplace)))
-    (file-relative-name
-     temp-file
-     (file-name-directory buffer-file-name))))
-
-(defun python-flymake-command-parse (cmdline)
-  "Parses the command line CMDLINE in a format compatible
-       with flymake, as:(list cmd-name arg-list)
-
-The CMDLINE should be something like:
-
- flymake %f python custom.py %f
-
-%f will be substituted with a temporary copy of the file that is
- currently being checked.
-"
-  (let ((cmdline-subst (replace-regexp-in-string "%f" (python-flymake-create-copy-file) cmdline)))
-    (setq cmdline-subst (split-string-and-unquote cmdline-subst))
-    (list (first cmdline-subst) (rest cmdline-subst))
-    ))
-
-(defun python-setup-checker (cmdline)
-  (add-to-list 'flymake-allowed-file-name-masks
-               (list "\\.py\\'" (apply-partially 'python-flymake-command-parse cmdline)))
-  )
-
-(defun flymake-python ()
-  (require 'flymake)
-  (require 'flymake-cursor)
-  (flymake-mode)
-  (flymake-cursor-mode 1)
-  (setq flymake-run-in-place nil)
-  (setq temporary-file-directory "~/.emacs.d/tmp")
-  (python-setup-checker "pyflakes %f"))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Ropemacs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; pymacs
@@ -169,7 +127,7 @@ The CMDLINE should be something like:
          (completions (mapcar (lambda (c) (concat pattern c))
                               (rope-completions)))
          (result nil))
-    (cond ((= 1 (length completions)) 
+    (cond ((= 1 (length completions))
            (setq result (car completions)))
           (completions
            (setq result (completing-read
@@ -209,7 +167,6 @@ The CMDLINE should be something like:
     ;;                       (lambda (dir name)
     ;;                         (rope-open-project (concat dir name))))
     (setup-ropemacs)
-    (flymake-python)
 
     ;; change hook to use special complete function
     (setq tab-always-indent `complete)
@@ -231,8 +188,6 @@ The CMDLINE should be something like:
   (define-key python-mode-map (kbd "<backtab>") 'ipython-complete)
   (define-key python-mode-map (kbd "C-c g") 'google-suggest) ; this is taken by python-mode
   (define-key python-mode-map (kbd "C-c C-a") 'ack-at-point-and-switch) ; this is taken by mark-line
-  (define-key python-mode-map (kbd "M-n") 'flymake-goto-next-error)
-  (define-key python-mode-map (kbd "M-p") 'flymake-goto-prev-error)
   )
 
 (defun py-shell-keys-and-fix ()

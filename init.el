@@ -19,20 +19,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; User configurable packages, folders, options
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar packages-to-install '(smex
-                              ido-ubiquitous
-                              volatile-highlights
-                              expand-region
-                              ack-and-a-half
-                              rainbow-mode
-                              flymake
-                              flymake-cursor
-                              auto-complete
-                              multi-term
-                              projectile
-                              )
-  "Packages to be installed from marmalade.")
-
 (defvar thirdparty-dir (concat user-dir ".emacs.d/thirdparty/")
   "Third party libraries directory.")
 
@@ -58,6 +44,19 @@
       (apply 'message args)))
 
 ;; Install packages
+(defvar packages-to-install '(smex
+                              ido-ubiquitous
+                              volatile-highlights
+                              expand-region
+                              ack-and-a-half
+                              rainbow-mode
+                              flycheck
+                              auto-complete
+                              multi-term
+                              projectile
+                              )
+  "Packages to be installed from marmalade.")
+
 (load-file (concat library-dir "jt-package.el"))
 
 ;; Configurations

@@ -96,3 +96,4 @@
 (load-file (concat config-dir "45-jt-iterm2.el"))
 (load-file (concat config-dir "29-jt-python.el"))
 (load-file (concat config-dir "35-jt-pylookup.el"))
+(load-file (concat config-dir "46-jt-modeline.el"))
