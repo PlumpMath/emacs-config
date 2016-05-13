@@ -13,14 +13,6 @@
   (highlight-lines-matching-regexp "pdb.set_trace()"))
 (add-hook 'python-mode-hook 'annotate-pdb)
 
-(defun python-add-breakpoint ()
-  (interactive)
-  (py-newline-and-indent)
-  (insert "import ipdb; ipdb.set_trace()")
-  (highlight-lines-matching-regexp "^[ 	]*import ipdb; ipdb.set_trace()"))
-(define-key python-mode-map (kbd "C-c C-t") 'python-add-breakpoint)
-
-
 (defun python-shift-left ()
   (interactive)
   (let (start end bds)

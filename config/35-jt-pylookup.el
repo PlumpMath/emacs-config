@@ -14,7 +14,7 @@
 (autoload 'pylookup-lookup "pylookup"
   "Lookup SEARCH-TERM in the Python HTML indexes." t)
 
-(autoload 'pylookup-update "pylookup" 
+(autoload 'pylookup-update "pylookup"
   "Run pylookup-update and create the database at `pylookup-db-file'." t)
 
-(define-key python-mode-map (kbd "C-c h") 'pylookup-lookup)
+;(define-key python-mode-map (kbd "C-c h") 'pylookup-lookup)

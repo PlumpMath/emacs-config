@@ -60,15 +60,6 @@ original" (interactive)
 ;; iedit C-;
 (require 'iedit)
 
-;; from http://pedrokroger.net/2010/07/configuring-emacs-as-a-python-ide-2/
-(add-hook 'python-mode-hook
-          #'(lambda ()
-              (push '(?' . ?')
-                    (getf autopair-extra-pairs :code))
-              (setq autopair-handle-action-fns
-                    (list #'autopair-default-handle-action
-                          #'autopair-python-triple-quote-action))))
-
 ;; duplicate a line
 (global-set-key (kbd "C-c d") 'duplicate-current-line-or-region)
 ;; duplicate a line and comment the first
