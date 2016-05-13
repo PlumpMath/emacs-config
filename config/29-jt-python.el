@@ -1,7 +1,7 @@
 (add-to-list 'load-path (concat thirdparty-dir "python-mode/"))
 
-(require 'ipython)
-(setq-default py-python-command-args '("--colors=Linux"))
+(setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "-i --colors=Linux")
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 
 ;; hacks for ido-mode, colors in debug
