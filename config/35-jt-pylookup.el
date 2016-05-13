@@ -17,4 +17,7 @@
 (autoload 'pylookup-update "pylookup"
   "Run pylookup-update and create the database at `pylookup-db-file'." t)
 
-;(define-key python-mode-map (kbd "C-c h") 'pylookup-lookup)
+(defun setup-pylookup ()
+  (define-key python-mode-map (kbd "C-c h") 'pylookup-lookup))
+
+(add-hook 'python-mode-hook 'setup-pylookup)

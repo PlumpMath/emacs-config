@@ -163,9 +163,9 @@ With optional argument LINE-NUMBER, check that line instead."
     ;; change hook to use special complete function
     (setq tab-always-indent `complete)
 
+    (setq py-complete-function 'ropemacs-complete-or-indent)
     (remove-hook 'completion-at-point-functions
                  py-complete-function 'local)
-    (setq py-complete-function 'ropemacs-complete-or-indent)
     (add-hook 'completion-at-point-functions
               py-complete-function 'local)))
 
