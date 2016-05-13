@@ -55,9 +55,7 @@ original" (interactive)
   (push-mark (point) nil t)
   (end-of-line))
 
-(add-to-list 'load-path (concat thirdparty-dir "autopair/"))
-(require 'autopair)
-(autopair-global-mode)
+(electric-pair-mode)
 
 ;; iedit C-;
 (require 'iedit)

@@ -32,7 +32,7 @@ elif [[ $platform == 'mac' ]]; then
     #    sudo cp ./thirdparty/mac-emacs-script /usr/bin/emacs
     #fi
     # always succeeds
-    brew install ack bzr git mercurial ctags wget || true
+    brew install bzr git mercurial || true
 fi
 pip install rope ropemode ipdb
 
@@ -58,7 +58,7 @@ if [ ! -d pylookup ]; then
 else
     echo "Updating pylookup..."
     cd pylookup
-    git pull -u
+    git pull
     cd ..
 fi
 cd pylookup
@@ -81,28 +81,19 @@ if [ ! -d helm ]; then
 else
     echo "Updating helm"
     cd helm
-    git pull -u
+    git pull
     cd ..
 fi
 cd helm
 make
 cd ..
-if [ ! -d autopair ]; then
-    echo "Pulling autopair"
-    svn co http://autopair.googlecode.com/svn/trunk autopair
-else
-    echo "Updating autopair"
-    cd autopair
-    svn up
-    cd ..
-fi
 if [ ! -d Pymacs ]; then
     echo "Pulling pymacs"
     git clone https://github.com/pinard/Pymacs.git
 else
     echo "Updating pymacs"
     cd Pymacs
-    git pull -u
+    git pull
     cd ..
 fi
 echo "Building pymacs"
@@ -128,7 +119,7 @@ if [ ! -d rainbow-delimiters ]; then
 else
     echo "Updating rainbow-delimiters"
     cd rainbow-delimiters
-    git pull -u
+    git pull
     cd ..
 fi
 cd rainbow-delimiters
@@ -140,7 +131,7 @@ if [ ! -d popwin-el ]; then
 else
     echo "Updating popwin-el"
     cd popwin-el
-    git pull -u
+    git pull
     cd ..
 fi
 cd popwin-el

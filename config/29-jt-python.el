@@ -191,7 +191,6 @@ With optional argument LINE-NUMBER, check that line instead."
   )
 
 (defun py-shell-keys-and-fix ()
-  (autopair-mode -1)
   (define-key inferior-python-mode-map (kbd "C-j") 'ipython-send-and-indent)
   (define-key inferior-python-mode-map (kbd "<return>") 'ipython-send-and-indent))
 (add-hook 'py-shell-hook 'py-shell-keys-and-fix t)
